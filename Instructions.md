@@ -21,21 +21,21 @@
 | 0x70 | BVS r  | ADC iY |        |        |        | ADC zX |        |        |
 | 0x78 | SED    | ADC aY |        |        |        | ADC aX |        |        |
 | 0x80 |        |        |        |        |        |        |        |        |
-| 0x88 |        |        |        |        |        |        |        |        |
+| 0x88 | DEY    |        |        |        |        |        |        |        |
 | 0x90 | BCC r  |        |        |        |        |        |        |        |
 | 0x98 |        |        |        |        |        |        |        |        |
 | 0xA0 |        |        |        |        |        |        |        |        |
 | 0xA8 |        |        |        |        |        |        |        |        |
 | 0xB0 | BCS r  |        |        |        |        |        |        |        |
 | 0xB8 | CLV    |        |        |        |        |        |        |        |
-| 0xC0 | CPY #  | CMP iX |        |        | CPY zp | CMP zp |        |        |
-| 0xC8 |        | CMP #  |        |        | CPY ab | CMP ab |        |        |
-| 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX |        |        |
-| 0xD8 | CLD    | CMP aY |        |        |        | CMP aX |        |        |
-| 0xE0 | CPX #  |        |        |        | CPX zp |        |        |        |
-| 0xE8 |        |        |        |        | CPX ab |        |        |        |
-| 0xF0 | BEQ r  |        |        |        |        |        |        |        |
-| 0xF8 | SED    |        |        |        |        |        |        |        |
+| 0xC0 | CPY #  | CMP iX |        |        | CPY zp | CMP zp | DEC zp |        |
+| 0xC8 | INY    | CMP #  | DEX    |        | CPY ab | CMP ab | DEC ab |        |
+| 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX | DEC zX |        |
+| 0xD8 | CLD    | CMP aY |        |        |        | CMP aX | DEC aX |        |
+| 0xE0 | CPX #  |        |        |        | CPX zp |        | INC zp |        |
+| 0xE8 | INX    |        |        |        | CPX ab |        | INC ab |        |
+| 0xF0 | BEQ r  |        |        |        |        |        | INC zX |        |
+| 0xF8 | SED    |        |        |        |        |        | INC aX |        |
 
 ###   Instructions
 
@@ -58,21 +58,21 @@
 | 0x70 | BVS | ADC |     |     |     | ADC |     |     |
 | 0x78 | SEI | ADC |     |     |     | ADC |     |     |
 | 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |     |     |     |     |     |     |     |     |
+| 0x88 | DEY |     |     |     |     |     |     |     |
 | 0x90 | BCC |     |     |     |     |     |     |     |
 | 0x98 |     |     |     |     |     |     |     |     |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     |     |     |     |     |     |
 | 0xB0 | BCS |     |     |     |     |     |     |     |
 | 0xB8 | CLV |     |     |     |     |     |     |     |
-| 0xC0 | CPY | CMP |     |     | CPY | CMP |     |     |
-| 0xC8 |     | CMP |     |     | CPY | CMP |     |     |
-| 0xD0 | BNE | CMP |     |     |     | CMP |     |     |
-| 0xD8 | CLD | CMP |     |     |     | CMP |     |     |
-| 0xE0 | CPX |     |     |     | CPX |     |     |     |
-| 0xE8 |     |     |     |     | CPX |     |     |     |
-| 0xF0 | BEQ |     |     |     |     |     |     |     |
-| 0xF8 | SED |     |     |     |     |     |     |     |
+| 0xC0 | CPY | CMP |     |     | CPY | CMP | DEC |     |
+| 0xC8 | INY | CMP | DEX |     | CPY | CMP | DEC |     |
+| 0xD0 | BNE | CMP |     |     |     | CMP | DEC |     |
+| 0xD8 | CLD | CMP |     |     |     | CMP | DEC |     |
+| 0xE0 | CPX |     |     |     | CPX |     | INC |     |
+| 0xE8 | INX |     |     |     | CPX |     | INC |     |
+| 0xF0 | BEQ |     |     |     |     |     | INC |     |
+| 0xF8 | SED |     |     |     |     |     | INC |     |
 
 ###   Addressing
 
@@ -95,21 +95,21 @@
 | 0x70 | rel | i,Y |     |     |     | z,X |     |     |
 | 0x78 | imp | a,Y |     |     |     | a,X |     |     |
 | 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |     |     |     |     |     |     |     |     |
+| 0x88 | imp |     |     |     |     |     |     |     |
 | 0x90 | rel |     |     |     |     |     |     |     |
 | 0x98 |     |     |     |     |     |     |     |     |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     |     |     |     |     |     |
 | 0xB0 | rel |     |     |     |     |     |     |     |
 | 0xB8 | imp |     |     |     |     |     |     |     |
-| 0xC0 | #im | i,X |     |     | zp  | zp  |     |     |
-| 0xC8 |     | #im |     |     | abs | abs |     |     |
-| 0xD0 | rel | i,Y |     |     |     | z,X |     |     |
-| 0xD8 | imp | a,Y |     |     |     | a,X |     |     |
-| 0xE0 | #im |     |     |     | zp  |     |     |     |
-| 0xE8 |     |     |     |     | abs |     |     |     |
-| 0xF0 | rel |     |     |     |     |     |     |     |
-| 0xF8 | imp |     |     |     |     |     |     |     |
+| 0xC0 | #im | i,X |     |     | zp  | zp  | zp  |     |
+| 0xC8 | imp | #im | imp |     | abs | abs | abs |     |
+| 0xD0 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0xD8 | imp | a,Y |     |     |     | a,X | a,X |     |
+| 0xE0 | #im |     |     |     | zp  |     | zp  |     |
+| 0xE8 | imp |     |     |     | abs |     | abs |     |
+| 0xF0 | rel |     |     |     |     |     | z,X |     |
+| 0xF8 | imp |     |     |     |     |     | a,X |     |
 
 
 ###   Number of Bytes
@@ -133,21 +133,21 @@
 | 0x70 |   2 |   2 |     |     |     |   2 |     |     |
 | 0x78 |   1 |   3 |     |     |     |   3 |     |     |
 | 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |     |     |     |     |     |     |     |     |
+| 0x88 |   1 |     |     |     |     |     |     |     |
 | 0x90 |   2 |     |     |     |     |     |     |     |
 | 0x98 |     |     |     |     |     |     |     |     |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     |     |     |     |     |     |
 | 0xB0 |   2 |     |     |     |     |     |     |     |
 | 0xB8 |   1 |     |     |     |     |     |     |     |
-| 0xC0 |   2 |   2 |     |     |   2 |   2 |     |     |
-| 0xC8 |     |   2 |     |     |   3 |   3 |     |     |
-| 0xD0 |   2 |   2 |     |     |     |   2 |     |     |
-| 0xD8 |   1 |   3 |     |     |     |   3 |     |     |
-| 0xE0 |   2 |     |     |     |   2 |     |     |     |
-| 0xE8 |     |     |     |     |   3 |     |     |     |
-| 0xF0 |   2 |     |     |     |     |     |     |     |
-| 0xF8 |   1 |     |     |     |     |     |     |     |
+| 0xC0 |   2 |   2 |     |     |   2 |   2 |   2 |     |
+| 0xC8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
+| 0xD0 |   2 |   2 |     |     |     |   2 |   2 |     |
+| 0xD8 |   1 |   3 |     |     |     |   3 |   3 |     |
+| 0xE0 |   2 |     |     |     |   2 |     |   2 |     |
+| 0xE8 |   1 |     |     |     |   3 |     |   3 |     |
+| 0xF0 |   2 |     |     |     |     |     |   2 |     |
+| 0xF8 |   1 |     |     |     |     |     |   3 |     |
 
 
 ###   Cycles
@@ -171,21 +171,21 @@
 | 0x70 | 2-4 | 5,6 |     |     |     |   4 |     |     |
 | 0x78 |   2 | 4,5 |     |     |     | 4,5 |     |     |
 | 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |     |     |     |     |     |     |     |     |
+| 0x88 |   2 |     |     |     |     |     |     |     |
 | 0x90 | 2-4 |     |     |     |     |     |     |     |
 | 0x98 |     |     |     |     |     |     |     |     |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     |     |     |     |     |     |
 | 0xB0 | 2-4 |     |     |     |     |     |     |     |
 | 0xB8 |   2 |     |     |     |     |     |     |     |
-| 0xC0 |   2 |   6 |     |     |   3 |   3 |     |     |
-| 0xC8 |     |   2 |     |     |   4 |   4 |     |     |
-| 0xD0 | 2-4 | 5,6 |     |     |     |   4 |     |     |
-| 0xD8 |   2 | 4,5 |     |     |     | 4,5 |     |     |
-| 0xE0 |   2 |     |     |     |   3 |     |     |     |
-| 0xE8 |     |     |     |     |   4 |     |     |     |
-| 0xF0 | 2-4 |     |     |     |     |     |     |     |
-| 0xF8 |   2 |     |     |     |     |     |     |     |
+| 0xC0 |   2 |   6 |     |     |   3 |   3 |   5 |     |
+| 0xC8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
+| 0xD0 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
+| 0xD8 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
+| 0xE0 |   2 |     |     |     |   3 |     |   5 |     |
+| 0xE8 |   2 |     |     |     |   4 |     |   6 |     |
+| 0xF0 | 2-4 |     |     |     |     |     |   6 |     |
+| 0xF8 |   2 |     |     |     |     |     |   7 |     |
 
 ##  Details
 
@@ -221,13 +221,50 @@
 | (Indirect,X) | $61 |     2 | 6      |
 | (Indirect),Y | $71 |     2 | 5 (6)  |
 
-- SBC
-- INC
 - DEC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $C6 |     2 | 5      |
+| ZeroPage, X  | $D6 |     2 | 6      |
+| Absolute     | $CE |     3 | 6      |
+| Absolute, X  | $DE |     3 | 7      |
+
+- DEX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $CA |     1 | 2      |
+
+
+- DEY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $88 |     1 | 2      |
+
+- INC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $E6 |     2 | 5      |
+| ZeroPage, X  | $F6 |     2 | 6      |
+| Absolute     | $EE |     3 | 6      |
+| Absolute, X  | $FE |     3 | 7      |
+
 - INX
-- DEY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $E8 |     1 | 2      |
+
 - INY
-- DEY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $C8 |     1 | 2      |
+
+- SBC
 
 ###   Shift
 
