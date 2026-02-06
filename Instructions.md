@@ -1,0 +1,491 @@
+# Instructions
+
+##  Table
+
+|      |  + 00  |  + 01  |  + 02  |  + 03  |  + 04  |  + 05  |  + 06  |  + 07  |
+|-----:|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
+| 0x00 |        |        |        |        |        |        | ASL zp |        |
+| 0x08 |        |        | ASL A  |        |        |        | ASL ab |        |
+| 0x10 | BPL r  |        |        |        |        |        | ASL zX |        |
+| 0x18 | CLC    |        |        |        |        |        | ASL aX |        |
+| 0x20 |        | AND iX |        |        | BIT zp | AND zp |        |        |
+| 0x28 |        | AND #  |        |        | BIT ab | AND ab |        |        |
+| 0x30 | BMI r  | AND iY |        |        |        | AND zX |        |        |
+| 0x38 | SEC    | AND aY |        |        |        | AND aX |        |        |
+| 0x40 |        |        |        |        |        |        |        |        |
+| 0x48 |        |        |        |        |        |        |        |        |
+| 0x50 | BVC r  |        |        |        |        |        |        |        |
+| 0x58 | CLI    |        |        |        |        |        |        |        |
+| 0x60 |        | ADC iX |        |        |        | ADC zp |        |        |
+| 0x68 |        | ADC #  |        |        |        | ADC ab |        |        |
+| 0x70 | BVS r  | ADC iY |        |        |        | ADC zX |        |        |
+| 0x78 | SED    | ADC aY |        |        |        | ADC aX |        |        |
+| 0x80 |        |        |        |        |        |        |        |        |
+| 0x88 | DEY    |        | TXA    |        |        |        |        |        |
+| 0x90 | BCC r  |        |        |        |        |        |        |        |
+| 0x98 | TYA    |        | TXS    |        |        |        |        |        |
+| 0xA0 |        |        |        |        |        |        |        |        |
+| 0xA8 | TAY    |        | TAX    |        |        |        |        |        |
+| 0xB0 | BCS r  |        |        |        |        |        |        |        |
+| 0xB8 | CLV    |        | TSX    |        |        |        |        |        |
+| 0xC0 | CPY #  | CMP iX |        |        | CPY zp | CMP zp | DEC zp |        |
+| 0xC8 | INY    | CMP #  | DEX    |        | CPY ab | CMP ab | DEC ab |        |
+| 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX | DEC zX |        |
+| 0xD8 | CLD    | CMP aY |        |        |        | CMP aX | DEC aX |        |
+| 0xE0 | CPX #  |        |        |        | CPX zp |        | INC zp |        |
+| 0xE8 | INX    |        |        |        | CPX ab |        | INC ab |        |
+| 0xF0 | BEQ r  |        |        |        |        |        | INC zX |        |
+| 0xF8 | SED    |        |        |        |        |        | INC aX |        |
+
+###   Instructions
+
+|      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
+|-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0x00 |     |     |     |     |     |     | ASL |     |
+| 0x08 |     |     | ASL |     |     |     | ASL |     |
+| 0x10 | BPL |     |     |     |     |     | ASL |     |
+| 0x18 | CLC |     |     |     |     |     | ASL |     |
+| 0x20 |     | AND |     |     | BIT | AND |     |     |
+| 0x28 |     | AND |     |     | BIT | AND |     |     |
+| 0x30 | BMI | AND |     |     |     | AND |     |     |
+| 0x38 | SEC | AND |     |     |     | AND |     |     |
+| 0x40 |     |     |     |     |     |     |     |     |
+| 0x48 |     |     |     |     |     |     |     |     |
+| 0x50 | BVC |     |     |     |     |     |     |     |
+| 0x58 | CLI |     |     |     |     |     |     |     |
+| 0x60 |     | ADC |     |     |     | ADC |     |     |
+| 0x68 |     | ADC |     |     |     | ADC |     |     |
+| 0x70 | BVS | ADC |     |     |     | ADC |     |     |
+| 0x78 | SEI | ADC |     |     |     | ADC |     |     |
+| 0x80 |     |     |     |     |     |     |     |     |
+| 0x88 | DEY |     | TXA |     |     |     |     |     |
+| 0x90 | BCC |     |     |     |     |     |     |     |
+| 0x98 | TYA |     | TXS |     |     |     |     |     |
+| 0xA0 |     |     |     |     |     |     |     |     |
+| 0xA8 | TAY |     | TAX |     |     |     |     |     |
+| 0xB0 | BCS |     |     |     |     |     |     |     |
+| 0xB8 | CLV |     | TSX |     |     |     |     |     |
+| 0xC0 | CPY | CMP |     |     | CPY | CMP | DEC |     |
+| 0xC8 | INY | CMP | DEX |     | CPY | CMP | DEC |     |
+| 0xD0 | BNE | CMP |     |     |     | CMP | DEC |     |
+| 0xD8 | CLD | CMP |     |     |     | CMP | DEC |     |
+| 0xE0 | CPX |     |     |     | CPX |     | INC |     |
+| 0xE8 | INX |     |     |     | CPX |     | INC |     |
+| 0xF0 | BEQ |     |     |     |     |     | INC |     |
+| 0xF8 | SED |     |     |     |     |     | INC |     |
+
+###   Addressing
+
+|      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
+|-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0x00 |     |     |     |     |     |     | zp  |     |
+| 0x08 |     |     | acc |     |     |     | abs |     |
+| 0x10 | rel |     |     |     |     |     | z,X |     |
+| 0x18 | imp |     |     |     |     |     | a,X |     |
+| 0x20 |     | i,X |     |     | zp  | zp  |     |     |
+| 0x28 |     | #im |     |     | abs | abs |     |     |
+| 0x30 | rel | i,Y |     |     |     | z,X |     |     |
+| 0x38 | imp | a,Y |     |     |     | a,X |     |     |
+| 0x40 |     |     |     |     |     |     |     |     |
+| 0x48 |     |     |     |     |     |     |     |     |
+| 0x50 | rel |     |     |     |     |     |     |     |
+| 0x58 | imp |     |     |     |     |     |     |     |
+| 0x60 |     | i,X |     |     |     | zp  |     |     |
+| 0x68 |     | #im |     |     |     | abs |     |     |
+| 0x70 | rel | i,Y |     |     |     | z,X |     |     |
+| 0x78 | imp | a,Y |     |     |     | a,X |     |     |
+| 0x80 |     |     |     |     |     |     |     |     |
+| 0x88 | imp |     | imp |     |     |     |     |     |
+| 0x90 | rel |     |     |     |     |     |     |     |
+| 0x98 | imp |     | imp |     |     |     |     |     |
+| 0xA0 |     |     |     |     |     |     |     |     |
+| 0xA8 | imp |     | imp |     |     |     |     |     |
+| 0xB0 | rel |     |     |     |     |     |     |     |
+| 0xB8 | imp |     | imp |     |     |     |     |     |
+| 0xC0 | #im | i,X |     |     | zp  | zp  | zp  |     |
+| 0xC8 | imp | #im | imp |     | abs | abs | abs |     |
+| 0xD0 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0xD8 | imp | a,Y |     |     |     | a,X | a,X |     |
+| 0xE0 | #im |     |     |     | zp  |     | zp  |     |
+| 0xE8 | imp |     |     |     | abs |     | abs |     |
+| 0xF0 | rel |     |     |     |     |     | z,X |     |
+| 0xF8 | imp |     |     |     |     |     | a,X |     |
+
+
+###   Number of Bytes
+
+|      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
+|-----:|----:|----:|----:|----:|----:|----:|----:|----:|
+| 0x00 |     |     |     |     |     |     |   2 |     |
+| 0x08 |     |     |   1 |     |     |     |   3 |     |
+| 0x10 |   2 |     |     |     |     |     |   2 |     |
+| 0x18 |   1 |     |     |     |     |     |   3 |     |
+| 0x20 |     |   2 |     |     |   2 |   2 |     |     |
+| 0x28 |     |   2 |     |     |   3 |   3 |     |     |
+| 0x30 |   2 |   2 |     |     |     |   2 |     |     |
+| 0x38 |   1 |   3 |     |     |     |   3 |     |     |
+| 0x40 |     |     |     |     |     |     |     |     |
+| 0x48 |     |     |     |     |     |     |     |     |
+| 0x50 |   2 |     |     |     |     |     |     |     |
+| 0x58 |   1 |     |     |     |     |     |     |     |
+| 0x60 |     |   2 |     |     |     |   2 |     |     |
+| 0x68 |     |   2 |     |     |     |   3 |     |     |
+| 0x70 |   2 |   2 |     |     |     |   2 |     |     |
+| 0x78 |   1 |   3 |     |     |     |   3 |     |     |
+| 0x80 |     |     |     |     |     |     |     |     |
+| 0x88 |   1 |     |   1 |     |     |     |     |     |
+| 0x90 |   2 |     |     |     |     |     |     |     |
+| 0x98 |   1 |     |   1 |     |     |     |     |     |
+| 0xA0 |     |     |     |     |     |     |     |     |
+| 0xA8 |   1 |     |   1 |     |     |     |     |     |
+| 0xB0 |   2 |     |     |     |     |     |     |     |
+| 0xB8 |   1 |     |   1 |     |     |     |     |     |
+| 0xC0 |   2 |   2 |     |     |   2 |   2 |   2 |     |
+| 0xC8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
+| 0xD0 |   2 |   2 |     |     |     |   2 |   2 |     |
+| 0xD8 |   1 |   3 |     |     |     |   3 |   3 |     |
+| 0xE0 |   2 |     |     |     |   2 |     |   2 |     |
+| 0xE8 |   1 |     |     |     |   3 |     |   3 |     |
+| 0xF0 |   2 |     |     |     |     |     |   2 |     |
+| 0xF8 |   1 |     |     |     |     |     |   3 |     |
+
+
+###   Cycles
+
+|      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
+|-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| 0x00 |     |     |     |     |     |     |   5 |     |
+| 0x08 |     |     |   2 |     |     |     |   6 |     |
+| 0x10 | 2-4 |     |     |     |     |     |   6 |     |
+| 0x18 |   2 |     |     |     |     |     |   7 |     |
+| 0x20 |     |   6 |     |     |   3 |   3 |     |     |
+| 0x28 |     |   2 |     |     |   4 |   4 |     |     |
+| 0x30 | 2-4 | 5,6 |     |     |     |   4 |     |     |
+| 0x38 |   2 | 4,5 |     |     |     | 4,5 |     |     |
+| 0x40 |     |     |     |     |     |     |     |     |
+| 0x48 |     |     |     |     |     |     |     |     |
+| 0x50 | 2-4 |     |     |     |     |     |     |     |
+| 0x58 |   2 |     |     |     |     |     |     |     |
+| 0x60 |     |   6 |     |     |     |   3 |     |     |
+| 0x68 |     |   2 |     |     |     |   4 |     |     |
+| 0x70 | 2-4 | 5,6 |     |     |     |   4 |     |     |
+| 0x78 |   2 | 4,5 |     |     |     | 4,5 |     |     |
+| 0x80 |     |     |     |     |     |     |     |     |
+| 0x88 |   2 |     |   2 |     |     |     |     |     |
+| 0x90 | 2-4 |     |     |     |     |     |     |     |
+| 0x98 |   2 |     |   2 |     |     |     |     |     |
+| 0xA0 |     |     |     |     |     |     |     |     |
+| 0xA8 |   2 |     |   2 |     |     |     |     |     |
+| 0xB0 | 2-4 |     |     |     |     |     |     |     |
+| 0xB8 |   2 |     |   2 |     |     |     |     |     |
+| 0xC0 |   2 |   6 |     |     |   3 |   3 |   5 |     |
+| 0xC8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
+| 0xD0 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
+| 0xD8 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
+| 0xE0 |   2 |     |     |     |   3 |     |   5 |     |
+| 0xE8 |   2 |     |     |     |   4 |     |   6 |     |
+| 0xF0 | 2-4 |     |     |     |     |     |   6 |     |
+| 0xF8 |   2 |     |     |     |     |     |   7 |     |
+
+##  Details
+
+
+###   Access
+
+- LDA
+
+- LDX
+
+- LDY
+
+- STA
+
+- STX
+
+
+- STY
+
+###   Transfer
+
+- TAX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $AA |     1 | 2      |
+
+- TAY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $A8 |     1 | 2      |
+
+- TXA
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $8A |     1 | 2      |
+
+- TYA
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $98 |     1 | 2      |
+
+
+###   Arithmetic
+
+- ADC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $69 |     2 | 2      |
+| ZeroPage     | $65 |     2 | 3      |
+| ZeroPage, X  | $75 |     2 | 4      |
+| Absolute     | $6D |     3 | 4      |
+| Absolute, X  | $7D |     3 | 4 (5)  |
+| Absolute, Y  | $79 |     3 | 4 (5)  |
+| (Indirect,X) | $61 |     2 | 6      |
+| (Indirect),Y | $71 |     2 | 5 (6)  |
+
+- DEC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $C6 |     2 | 5      |
+| ZeroPage, X  | $D6 |     2 | 6      |
+| Absolute     | $CE |     3 | 6      |
+| Absolute, X  | $DE |     3 | 7      |
+
+- DEX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $CA |     1 | 2      |
+
+
+- DEY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $88 |     1 | 2      |
+
+- INC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $E6 |     2 | 5      |
+| ZeroPage, X  | $F6 |     2 | 6      |
+| Absolute     | $EE |     3 | 6      |
+| Absolute, X  | $FE |     3 | 7      |
+
+- INX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $E8 |     1 | 2      |
+
+- INY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $C8 |     1 | 2      |
+
+- SBC
+
+###   Shift
+
+- ASL
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Accumulator  | $0A |     1 | 2      |
+| ZeroPage     | $06 |     2 | 5      |
+| ZeroPage, X  | $16 |     2 | 6      |
+| Absolute     | $0E |     3 | 6      |
+| Absolute, X  | $1E |     3 | 7      |
+
+- LSR
+- ROL
+- ROR
+
+###  Bitwise
+
+- AND
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $29 |     2 | 2      |
+| ZeroPage     | $25 |     2 | 3      |
+| ZeroPage, X  | $35 |     2 | 4      |
+| Absolute     | $2D |     3 | 4      |
+| Absolute, X  | $3D |     3 | 4 (5)  |
+| Absolute, Y  | $39 |     3 | 4 (5)  |
+| (Indirect,X) | $21 |     2 | 6      |
+| (Indirect),Y | $31 |     2 | 5 (6)  |
+
+- ORA
+- EOR
+
+- BIT
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $24 |     2 | 3      |
+| Absolute     | $2C |     3 | 4      |
+
+###  Compare
+
+- CMP
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $C9 |     2 | 2      |
+| ZeroPage     | $C5 |     2 | 3      |
+| ZeroPage, X  | $D5 |     2 | 4      |
+| Absolute     | $CD |     3 | 4      |
+| Absolute, X  | $DD |     3 | 4 (5)  |
+| Absolute, Y  | $D9 |     3 | 4 (5)  |
+| (Indirect,X) | $C1 |     2 | 6      |
+| (Indirect),Y | $D1 |     2 | 5 (6)  |
+
+- CPX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $E0 |     2 | 2      |
+| ZeroPage     | $E4 |     2 | 3      |
+| Absolute     | $EC |     3 | 4      |
+
+- CPY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $C0 |     2 | 2      |
+| ZeroPage     | $C4 |     2 | 3      |
+| Absolute     | $CC |     3 | 4      |
+
+###  Branch
+
+- BCC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $90 |     2 | 2-4    |
+
+- BCS
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $B0 |     2 | 2-4    |
+
+- BEQ
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $F0 |     2 | 2-4    |
+
+- BMI
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $30 |     2 | 2-4    |
+
+- BNE
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $D0 |     2 | 2-4    |
+
+- BPL
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $10 |     2 | 2-4    |
+
+- BVC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $50 |     2 | 2-4    |
+
+- BVS
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Relative     | $70 |     2 | 2-4    |
+
+###  Jump
+
+- JMP
+- JSR
+- RTS
+- BRK
+- RTI
+
+###  Stack
+
+- PHA
+- PLA
+- PHP
+- PLP
+
+- TSX
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $BA |     1 | 2      |
+
+- TXS
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $9A |     1 | 2      |
+
+
+###  Flags
+
+- CLC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $18 |     1 | 2      |
+
+- CLD
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $D8 |     1 | 2      |
+
+- CLI
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $58 |     1 | 2      |
+
+- CLV
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $B8 |     1 | 2      |
+
+- SEC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $38 |     1 | 2      |
+
+- SED
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $F8 |     1 | 2      |
+
+- SEI
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $78 |     1 | 2      |
+
+###  Other
+
+- NOP
