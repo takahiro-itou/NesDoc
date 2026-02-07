@@ -20,9 +20,9 @@
 | 0x68 | PLA    | ADC #  | ROR A  |        | JMP id | ADC ab | ROR ab |        |
 | 0x70 | BVS r  | ADC iY |        |        |        | ADC zX | ROR zX |        |
 | 0x78 | SED    | ADC aY |        |        |        | ADC aX | ROR aX |        |
-| 0x80 |        | STA iX |        |        |        | STA zp |        |        |
-| 0x88 | DEY    |        | TXA    |        |        | STA ab |        |        |
-| 0x90 | BCC r  | STA iY |        |        |        | STA zX |        |        |
+| 0x80 |        | STA iX |        |        | STY zp | STA zp | STX zp |        |
+| 0x88 | DEY    |        | TXA    |        | STY ab | STA ab | STX ab |        |
+| 0x90 | BCC r  | STA iY |        |        | STY zX | STA zX | STX zY |        |
 | 0x98 | TYA    | STA aY | TXS    |        |        | STA aX |        |        |
 | 0xA0 | LDY #  | LDA iX | LDX #  |        | LDY zp | LDA zp | LDX zp |        |
 | 0xA8 | TAY    | LDA #  | TAX    |        | LDY ab | LDA ab | LDX ab |        |
@@ -57,9 +57,9 @@
 | 0x68 | PLA | ADC | ROR |     | JMP | ADC | ROR |     |
 | 0x70 | BVS | ADC |     |     |     | ADC | ROR |     |
 | 0x78 | SEI | ADC |     |     |     | ADC | ROR |     |
-| 0x80 |     | STA |     |     |     | STA |     |     |
-| 0x88 | DEY |     | TXA |     |     | STA |     |     |
-| 0x90 | BCC | STA |     |     |     | STA |     |     |
+| 0x80 |     | STA |     |     | STY | STA | STX |     |
+| 0x88 | DEY |     | TXA |     | STY | STA | STX |     |
+| 0x90 | BCC | STA |     |     | STY | STA | STX |     |
 | 0x98 | TYA | STA | TXS |     |     | STA |     |     |
 | 0xA0 | LDY | LDA | LDX |     | LDY | LDA | LDX |     |
 | 0xA8 | TAY | LDA | TAX |     | LDY | LDA | LDX |     |
@@ -237,7 +237,19 @@
 
 - STX
 
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $86 |     2 | 3      |
+| ZeroPage, Y  | $96 |     2 | 4      |
+| Absolute     | $8E |     3 | 4      |
+
 - STY
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $84 |     2 | 3      |
+| ZeroPage, X  | $94 |     2 | 4      |
+| Absolute     | $8C |     3 | 4      |
 
 
 ###   Transfer
