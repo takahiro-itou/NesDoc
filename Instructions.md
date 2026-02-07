@@ -12,10 +12,10 @@
 | 0x28 |        | AND #  |        |        | BIT ab | AND ab |        |        |
 | 0x30 | BMI r  | AND iY |        |        |        | AND zX |        |        |
 | 0x38 | SEC    | AND aY |        |        |        | AND aX |        |        |
-| 0x40 |        | EOR iX |        |        |        | EOR zp |        |        |
-| 0x48 |        | EOR #  |        |        | JMP ab | EOR ab |        |        |
-| 0x50 | BVC r  | EOR iY |        |        |        | EOR zX |        |        |
-| 0x58 | CLI    | EOR aY |        |        |        | EOR aX |        |        |
+| 0x40 |        | EOR iX |        |        |        | EOR zp | LSR zp |        |
+| 0x48 |        | EOR #  | LSR A  |        | JMP ab | EOR ab | LSR ab |        |
+| 0x50 | BVC r  | EOR iY |        |        |        | EOR zX | LSR zX |        |
+| 0x58 | CLI    | EOR aY |        |        |        | EOR aX | LSR aX |        |
 | 0x60 |        | ADC iX |        |        |        | ADC zp |        |        |
 | 0x68 |        | ADC #  |        |        | JMP id | ADC ab |        |        |
 | 0x70 | BVS r  | ADC iY |        |        |        | ADC zX |        |        |
@@ -49,10 +49,10 @@
 | 0x28 |     | AND |     |     | BIT | AND |     |     |
 | 0x30 | BMI | AND |     |     |     | AND |     |     |
 | 0x38 | SEC | AND |     |     |     | AND |     |     |
-| 0x40 |     | EOR |     |     |     | EOR |     |     |
-| 0x48 |     | EOR |     |     | JMP | EOR |     |     |
-| 0x50 | BVC | EOR |     |     |     | EOR |     |     |
-| 0x58 | CLI | EOR |     |     |     | EOR |     |     |
+| 0x40 |     | EOR |     |     |     | EOR | LSR |     |
+| 0x48 |     | EOR | LSR |     | JMP | EOR | LSR |     |
+| 0x50 | BVC | EOR |     |     |     | EOR | LSR |     |
+| 0x58 | CLI | EOR |     |     |     | EOR | LSR |     |
 | 0x60 |     | ADC |     |     |     | ADC |     |     |
 | 0x68 |     | ADC |     |     | JMP | ADC |     |     |
 | 0x70 | BVS | ADC |     |     |     | ADC |     |     |
@@ -86,10 +86,10 @@
 | 0x28 |     | #im |     |     | abs | abs |     |     |
 | 0x30 | rel | i,Y |     |     |     | z,X |     |     |
 | 0x38 | imp | a,Y |     |     |     | a,X |     |     |
-| 0x40 |     | i,X |     |     |     | zp  |     |     |
-| 0x48 |     | #im |     |     | abs | abs |     |     |
-| 0x50 | rel | i,Y |     |     |     | z,X |     |     |
-| 0x58 | imp | a,Y |     |     |     | a,X |     |     |
+| 0x40 |     | i,X |     |     |     | zp  | zp  |     |
+| 0x48 |     | #im | acc |     | abs | abs | abs |     |
+| 0x50 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x58 | imp | a,Y |     |     |     | a,X | a,X |     |
 | 0x60 |     | i,X |     |     |     | zp  |     |     |
 | 0x68 |     | #im |     |     | ind | abs |     |     |
 | 0x70 | rel | i,Y |     |     |     | z,X |     |     |
@@ -124,10 +124,10 @@
 | 0x30 |   2 |   2 |     |     |     |   2 |     |     |
 | 0x38 |   1 |   3 |     |     |     |   3 |     |     |
 | 0x40 |     |   2 |     |     |     |   2 |     |     |
-| 0x48 |     |   2 |     |     |   3 |   3 |     |     |
-| 0x50 |   2 |   2 |     |     |     |   2 |     |     |
-| 0x58 |   1 |   3 |     |     |     |   3 |     |     |
-| 0x60 |     |   2 |     |     |     |   2 |     |     |
+| 0x48 |     |   2 |   1 |     |   3 |   3 |   2 |     |
+| 0x50 |   2 |   2 |     |     |     |   2 |   3 |     |
+| 0x58 |   1 |   3 |     |     |     |   3 |   2 |     |
+| 0x60 |     |   2 |     |     |     |   2 |   3 |     |
 | 0x68 |     |   2 |     |     |   3 |   3 |     |     |
 | 0x70 |   2 |   2 |     |     |     |   2 |     |     |
 | 0x78 |   1 |   3 |     |     |     |   3 |     |     |
@@ -160,10 +160,10 @@
 | 0x28 |     |   2 |     |     |   4 |   4 |     |     |
 | 0x30 | 2-4 | 5,6 |     |     |     |   4 |     |     |
 | 0x38 |   2 | 4,5 |     |     |     | 4,5 |     |     |
-| 0x40 |     |   6 |     |     |     |   3 |     |     |
-| 0x48 |     |   2 |     |     |   3 |   4 |     |     |
-| 0x50 | 2-4 | 5,6 |     |     |     |   4 |     |     |
-| 0x58 |   2 | 4,5 |     |     |     | 4,5 |     |     |
+| 0x40 |     |   6 |     |     |     |   3 |   5 |     |
+| 0x48 |     |   2 |   2 |     |   3 |   4 |   6 |     |
+| 0x50 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
+| 0x58 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
 | 0x60 |     |   6 |     |     |     |   3 |     |     |
 | 0x68 |     |   2 |     |     |   5 |   4 |     |     |
 | 0x70 | 2-4 | 5,6 |     |     |     |   4 |     |     |
@@ -331,7 +331,17 @@
 | Absolute, X  | $1E |     3 | 7      |
 
 - LSR
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Accumulator  | $4A |     1 | 2      |
+| ZeroPage     | $46 |     2 | 5      |
+| ZeroPage, X  | $56 |     2 | 6      |
+| Absolute     | $4E |     3 | 6      |
+| Absolute, X  | $5E |     3 | 7      |
+
 - ROL
+
 - ROR
 
 
