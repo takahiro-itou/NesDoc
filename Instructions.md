@@ -20,10 +20,10 @@
 | 0x68 | PLA    | ADC #  | ROR A  |        | JMP id | ADC ab | ROR ab |        |
 | 0x70 | BVS r  | ADC iY |        |        |        | ADC zX | ROR zX |        |
 | 0x78 | SED    | ADC aY |        |        |        | ADC aX | ROR aX |        |
-| 0x80 |        |        |        |        |        |        |        |        |
-| 0x88 | DEY    |        | TXA    |        |        |        |        |        |
-| 0x90 | BCC r  |        |        |        |        |        |        |        |
-| 0x98 | TYA    |        | TXS    |        |        |        |        |        |
+| 0x80 |        | STA iX |        |        |        | STA zp |        |        |
+| 0x88 | DEY    |        | TXA    |        |        | STA ab |        |        |
+| 0x90 | BCC r  | STA iY |        |        |        | STA zX |        |        |
+| 0x98 | TYA    | STA aY | TXS    |        |        | STA aX |        |        |
 | 0xA0 | LDY #  | LDA iX | LDX #  |        | LDY zp | LDA zp | LDX zp |        |
 | 0xA8 | TAY    | LDA #  | TAX    |        | LDY ab | LDA ab | LDX ab |        |
 | 0xB0 | BCS r  | LDA iY |        |        | LDY zX | LDA zX | LDX zY |        |
@@ -57,10 +57,10 @@
 | 0x68 | PLA | ADC | ROR |     | JMP | ADC | ROR |     |
 | 0x70 | BVS | ADC |     |     |     | ADC | ROR |     |
 | 0x78 | SEI | ADC |     |     |     | ADC | ROR |     |
-| 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 | DEY |     | TXA |     |     |     |     |     |
-| 0x90 | BCC |     |     |     |     |     |     |     |
-| 0x98 | TYA |     | TXS |     |     |     |     |     |
+| 0x80 |     | STA |     |     |     | STA |     |     |
+| 0x88 | DEY |     | TXA |     |     | STA |     |     |
+| 0x90 | BCC | STA |     |     |     | STA |     |     |
+| 0x98 | TYA | STA | TXS |     |     | STA |     |     |
 | 0xA0 | LDY | LDA | LDX |     | LDY | LDA | LDX |     |
 | 0xA8 | TAY | LDA | TAX |     | LDY | LDA | LDX |     |
 | 0xB0 | BCS | LDA |     |     | LDY | LDA | LDX |     |
@@ -94,10 +94,10 @@
 | 0x68 | imp | #im | acc |     | ind | abs | abs |     |
 | 0x70 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0x78 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 | imp |     | imp |     |     |     |     |     |
-| 0x90 | rel |     |     |     |     |     |     |     |
-| 0x98 | imp |     | imp |     |     |     |     |     |
+| 0x80 |     | i,X |     |     |     |     | zp  |     |
+| 0x88 | imp |     | imp |     |     |     | abs |     |
+| 0x90 | rel | i,Y |     |     |     |     | z,X |     |
+| 0x98 | imp | a,Y | imp |     |     |     | a,X |     |
 | 0xA0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
 | 0xA8 | imp | #im | imp |     | abs | abs | abs |     |
 | 0xB0 | rel | i,Y |     |     | z,X | z,X | z,Y |     |
@@ -131,10 +131,10 @@
 | 0x68 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0x70 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0x78 |   1 |   3 |     |     |     |   3 |   3 |     |
-| 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |   1 |     |   1 |     |     |     |     |     |
-| 0x90 |   2 |     |     |     |     |     |     |     |
-| 0x98 |   1 |     |   1 |     |     |     |     |     |
+| 0x80 |     |   2 |     |     |     |   2 |     |     |
+| 0x88 |   1 |     |   1 |     |     |   3 |     |     |
+| 0x90 |   2 |   2 |     |     |     |   2 |     |     |
+| 0x98 |   1 |   3 |   1 |     |     |   3 |     |     |
 | 0xA0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
 | 0xA8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0xB0 |   2 |   2 |     |     |   2 |   2 |   2 |     |
@@ -168,10 +168,10 @@
 | 0x68 |   4 |   2 |   2 |     |   5 |   4 |   6 |     |
 | 0x70 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0x78 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
-| 0x80 |     |     |     |     |     |     |     |     |
-| 0x88 |   2 |     |   2 |     |     |     |     |     |
-| 0x90 | 2-4 |     |     |     |     |     |     |     |
-| 0x98 |   2 |     |   2 |     |     |     |     |     |
+| 0x80 |     |   6 |     |     |     |   3 |     |     |
+| 0x88 |   2 |     |   2 |     |     |   4 |     |     |
+| 0x90 | 2-4 |   6 |     |     |     |   4 |     |     |
+| 0x98 |   2 |   5 |   2 |     |     |   5 |     |     |
 | 0xA0 |   2 |   6 |   2 |     |   3 |   3 |   3 |     |
 | 0xA8 |   2 |   2 |   2 |     |   4 |   4 |   4 |     |
 | 0xB0 | 2-4 | 5,6 |     |     |   4 |   4 |   4 |     |
@@ -224,6 +224,16 @@
 | Absolute, X  | $BC |     3 | 4 (5)  |
 
 - STA
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $85 |     2 | 3      |
+| ZeroPage, X  | $95 |     2 | 4      |
+| Absolute     | $8D |     3 | 4      |
+| Absolute, X  | $9D |     3 | 5      |
+| Absolute, Y  | $99 |     3 | 5      |
+| (Indirect,X) | $81 |     2 | 6      |
+| (Indirect),Y | $91 |     2 | 6      |
 
 - STX
 
