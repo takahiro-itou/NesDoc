@@ -32,10 +32,10 @@
 | 0xC8 | INY    | CMP #  | DEX    |        | CPY ab | CMP ab | DEC ab |        |
 | 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX | DEC zX |        |
 | 0xD8 | CLD    | CMP aY |        |        |        | CMP aX | DEC aX |        |
-| 0xE0 | CPX #  |        |        |        | CPX zp |        | INC zp |        |
-| 0xE8 | INX    |        | NOP    |        | CPX ab |        | INC ab |        |
-| 0xF0 | BEQ r  |        |        |        |        |        | INC zX |        |
-| 0xF8 | SED    |        |        |        |        |        | INC aX |        |
+| 0xE0 | CPX #  | SBC iX |        |        | CPX zp | SBC zp | INC zp |        |
+| 0xE8 | INX    | SBC #  | NOP    |        | CPX ab | SBC ab | INC ab |        |
+| 0xF0 | BEQ r  | SBC iY |        |        |        | SBC zX | INC zX |        |
+| 0xF8 | SED    | SBC aY |        |        |        | SBC aX | INC aX |        |
 
 ###   Instructions
 
@@ -69,10 +69,10 @@
 | 0xC8 | INY | CMP | DEX |     | CPY | CMP | DEC |     |
 | 0xD0 | BNE | CMP |     |     |     | CMP | DEC |     |
 | 0xD8 | CLD | CMP |     |     |     | CMP | DEC |     |
-| 0xE0 | CPX |     |     |     | CPX |     | INC |     |
-| 0xE8 | INX |     | NOP |     | CPX |     | INC |     |
-| 0xF0 | BEQ |     |     |     |     |     | INC |     |
-| 0xF8 | SED |     |     |     |     |     | INC |     |
+| 0xE0 | CPX | SBC |     |     | CPX | SBC | INC |     |
+| 0xE8 | INX | SBC | NOP |     | CPX | SBC | INC |     |
+| 0xF0 | BEQ | SBC |     |     |     | SBC | INC |     |
+| 0xF8 | SED | SBC |     |     |     | SBC | INC |     |
 
 ###   Addressing
 
@@ -106,10 +106,10 @@
 | 0xC8 | imp | #im | imp |     | abs | abs | abs |     |
 | 0xD0 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0xD8 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0xE0 | #im |     |     |     | zp  |     | zp  |     |
-| 0xE8 | imp |     | imp |     | abs |     | abs |     |
-| 0xF0 | rel |     |     |     |     |     | z,X |     |
-| 0xF8 | imp |     |     |     |     |     | a,X |     |
+| 0xE0 | #im | i,X |     |     | zp  | zp  | zp  |     |
+| 0xE8 | imp | #im | imp |     | abs | abs | abs |     |
+| 0xF0 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0xF8 | imp | a,Y |     |     |     | a,X | a,X |     |
 
 ###   Number of Bytes
 
@@ -143,10 +143,10 @@
 | 0xC8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0xD0 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0xD8 |   1 |   3 |     |     |     |   3 |   3 |     |
-| 0xE0 |   2 |     |     |     |   2 |     |   2 |     |
-| 0xE8 |   1 |     |   1 |     |   3 |     |   3 |     |
-| 0xF0 |   2 |     |     |     |     |     |   2 |     |
-| 0xF8 |   1 |     |     |     |     |     |   3 |     |
+| 0xE0 |   2 |   2 |     |     |   2 |   2 |   2 |     |
+| 0xE8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
+| 0xF0 |   2 |   2 |     |     |     |   2 |   2 |     |
+| 0xF8 |   1 |   3 |     |     |     |   3 |   3 |     |
 
 ###   Cycles
 
@@ -180,10 +180,10 @@
 | 0xC8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
 | 0xD0 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0xD8 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
-| 0xE0 |   2 |     |     |     |   3 |     |   5 |     |
-| 0xE8 |   2 |     |   2 |     |   4 |     |   6 |     |
-| 0xF0 | 2-4 |     |     |     |     |     |   6 |     |
-| 0xF8 |   2 |     |     |     |     |     |   7 |     |
+| 0xE0 |   2 |   6 |     |     |   3 |   3 |   5 |     |
+| 0xE8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
+| 0xF0 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
+| 0xF8 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
 
 ##  Details
 
@@ -316,6 +316,17 @@
 | Implied      | $C8 |     1 | 2      |
 
 - SBC
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | $E9 |     2 | 2      |
+| ZeroPage     | $E5 |     2 | 3      |
+| ZeroPage, X  | $F5 |     2 | 4      |
+| Absolute     | $ED |     3 | 4      |
+| Absolute, X  | $FD |     3 | 4 (5)  |
+| Absolute, Y  | $F9 |     3 | 4 (5)  |
+| (Indirect,X) | $E1 |     2 | 6      |
+| (Indirect),Y | $F1 |     2 | 5 (6)  |
 
 
 ###   Shift
