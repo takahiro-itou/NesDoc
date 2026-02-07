@@ -12,11 +12,11 @@
 | 0x28 | PLP    | AND #  | ROL A  |        | BIT ab | AND ab | ROL ab |        |
 | 0x30 | BMI r  | AND iY |        |        |        | AND zX | ROL zX |        |
 | 0x38 | SEC    | AND aY |        |        |        | AND aX | ROL aX |        |
-| 0x40 |        | EOR iX |        |        |        | EOR zp | LSR zp |        |
+| 0x40 | RTI    | EOR iX |        |        |        | EOR zp | LSR zp |        |
 | 0x48 | PHA    | EOR #  | LSR A  |        | JMP ab | EOR ab | LSR ab |        |
 | 0x50 | BVC r  | EOR iY |        |        |        | EOR zX | LSR zX |        |
 | 0x58 | CLI    | EOR aY |        |        |        | EOR aX | LSR aX |        |
-| 0x60 |        | ADC iX |        |        |        | ADC zp | ROR zp |        |
+| 0x60 | RTS    | ADC iX |        |        |        | ADC zp | ROR zp |        |
 | 0x68 | PLA    | ADC #  | ROR A  |        | JMP id | ADC ab | ROR ab |        |
 | 0x70 | BVS r  | ADC iY |        |        |        | ADC zX | ROR zX |        |
 | 0x78 | SED    | ADC aY |        |        |        | ADC aX | ROR aX |        |
@@ -49,11 +49,11 @@
 | 0x28 | PLP | AND | ROL |     | BIT | AND | ROL |     |
 | 0x30 | BMI | AND |     |     |     | AND | ROL |     |
 | 0x38 | SEC | AND |     |     |     | AND | ROL |     |
-| 0x40 |     | EOR |     |     |     | EOR | LSR |     |
+| 0x40 | RTI | EOR |     |     |     | EOR | LSR |     |
 | 0x48 | PHA | EOR | LSR |     | JMP | EOR | LSR |     |
 | 0x50 | BVC | EOR |     |     |     | EOR | LSR |     |
 | 0x58 | CLI | EOR |     |     |     | EOR | LSR |     |
-| 0x60 |     | ADC |     |     |     | ADC | ROR |     |
+| 0x60 | RTS | ADC |     |     |     | ADC | ROR |     |
 | 0x68 | PLA | ADC | ROR |     | JMP | ADC | ROR |     |
 | 0x70 | BVS | ADC |     |     |     | ADC | ROR |     |
 | 0x78 | SEI | ADC |     |     |     | ADC | ROR |     |
@@ -86,11 +86,11 @@
 | 0x28 | imp | #im | acc |     | abs | abs | abs |     |
 | 0x30 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0x38 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x40 |     | i,X |     |     |     | zp  | zp  |     |
+| 0x40 | imp | i,X |     |     |     | zp  | zp  |     |
 | 0x48 | imp | #im | acc |     | abs | abs | abs |     |
 | 0x50 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0x58 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x60 |     | i,X |     |     |     | zp  | zp  |     |
+| 0x60 | imp | i,X |     |     |     | zp  | zp  |     |
 | 0x68 | imp | #im | acc |     | ind | abs | abs |     |
 | 0x70 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0x78 | imp | a,Y |     |     |     | a,X | a,X |     |
@@ -123,11 +123,11 @@
 | 0x28 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0x30 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0x38 |   1 |   3 |     |     |     |   3 |   3 |     |
-| 0x40 |     |   2 |     |     |     |   2 |   2 |     |
+| 0x40 |   1 |   2 |     |     |     |   2 |   2 |     |
 | 0x48 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0x50 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0x58 |   1 |   3 |     |     |     |   3 |   3 |     |
-| 0x60 |     |   2 |     |     |     |   2 |   2 |     |
+| 0x60 |   1 |   2 |     |     |     |   2 |   2 |     |
 | 0x68 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
 | 0x70 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0x78 |   1 |   3 |     |     |     |   3 |   3 |     |
@@ -160,11 +160,11 @@
 | 0x28 |   4 |   2 |   2 |     |   4 |   4 |   6 |     |
 | 0x30 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0x38 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
-| 0x40 |     |   6 |     |     |     |   3 |   5 |     |
+| 0x40 |   6 |   6 |     |     |     |   3 |   5 |     |
 | 0x48 |   3 |   2 |   2 |     |   3 |   4 |   6 |     |
 | 0x50 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0x58 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
-| 0x60 |     |   6 |     |     |     |   3 |   5 |     |
+| 0x60 |   6 |   6 |     |     |     |   3 |   5 |     |
 | 0x68 |   4 |   2 |   2 |     |   5 |   4 |   6 |     |
 | 0x70 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0x78 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
@@ -505,7 +505,15 @@
 
 - RTI
 
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $40 |     1 | 6      |
+
 - RTS
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $60 |     1 | 6      |
 
 
 ###  Stack
