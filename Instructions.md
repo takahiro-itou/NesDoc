@@ -8,10 +8,10 @@
 | 0x08 | PHP    |        | ASL A  |        |        |        | ASL ab |        |
 | 0x10 | BPL r  |        |        |        |        |        | ASL zX |        |
 | 0x18 | CLC    |        |        |        |        |        | ASL aX |        |
-| 0x20 | JSR ab | AND iX |        |        | BIT zp | AND zp |        |        |
-| 0x28 | PLP    | AND #  |        |        | BIT ab | AND ab |        |        |
-| 0x30 | BMI r  | AND iY |        |        |        | AND zX |        |        |
-| 0x38 | SEC    | AND aY |        |        |        | AND aX |        |        |
+| 0x20 | JSR ab | AND iX |        |        | BIT zp | AND zp | ROL zp |        |
+| 0x28 | PLP    | AND #  | ROL A  |        | BIT ab | AND ab | ROL ab |        |
+| 0x30 | BMI r  | AND iY |        |        |        | AND zX | ROL zX |        |
+| 0x38 | SEC    | AND aY |        |        |        | AND aX | ROL aX |        |
 | 0x40 |        | EOR iX |        |        |        | EOR zp | LSR zp |        |
 | 0x48 | PHA    | EOR #  | LSR A  |        | JMP ab | EOR ab | LSR ab |        |
 | 0x50 | BVC r  | EOR iY |        |        |        | EOR zX | LSR zX |        |
@@ -45,10 +45,10 @@
 | 0x08 | PHP |     | ASL |     |     |     | ASL |     |
 | 0x10 | BPL |     |     |     |     |     | ASL |     |
 | 0x18 | CLC |     |     |     |     |     | ASL |     |
-| 0x20 | JSR | AND |     |     | BIT | AND |     |     |
-| 0x28 | PLP | AND |     |     | BIT | AND |     |     |
-| 0x30 | BMI | AND |     |     |     | AND |     |     |
-| 0x38 | SEC | AND |     |     |     | AND |     |     |
+| 0x20 | JSR | AND |     |     | BIT | AND | ROL |     |
+| 0x28 | PLP | AND | ROL |     | BIT | AND | ROL |     |
+| 0x30 | BMI | AND |     |     |     | AND | ROL |     |
+| 0x38 | SEC | AND |     |     |     | AND | ROL |     |
 | 0x40 |     | EOR |     |     |     | EOR | LSR |     |
 | 0x48 | PHA | EOR | LSR |     | JMP | EOR | LSR |     |
 | 0x50 | BVC | EOR |     |     |     | EOR | LSR |     |
@@ -82,10 +82,10 @@
 | 0x08 | imp |     | acc |     |     |     | abs |     |
 | 0x10 | rel |     |     |     |     |     | z,X |     |
 | 0x18 | imp |     |     |     |     |     | a,X |     |
-| 0x20 | abs | i,X |     |     | zp  | zp  |     |     |
-| 0x28 | imp | #im |     |     | abs | abs |     |     |
-| 0x30 | rel | i,Y |     |     |     | z,X |     |     |
-| 0x38 | imp | a,Y |     |     |     | a,X |     |     |
+| 0x20 | abs | i,X |     |     | zp  | zp  | zp  |     |
+| 0x28 | imp | #im | acc |     | abs | abs | abs |     |
+| 0x30 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x38 | imp | a,Y |     |     |     | a,X | a,X |     |
 | 0x40 |     | i,X |     |     |     | zp  | zp  |     |
 | 0x48 | imp | #im | acc |     | abs | abs | abs |     |
 | 0x50 | rel | i,Y |     |     |     | z,X | z,X |     |
@@ -119,10 +119,10 @@
 | 0x08 |   1 |     |   1 |     |     |     |   3 |     |
 | 0x10 |   2 |     |     |     |     |     |   2 |     |
 | 0x18 |   1 |     |     |     |     |     |   3 |     |
-| 0x20 |   3 |   2 |     |     |   2 |   2 |     |     |
-| 0x28 |   1 |   2 |     |     |   3 |   3 |     |     |
-| 0x30 |   2 |   2 |     |     |     |   2 |     |     |
-| 0x38 |   1 |   3 |     |     |     |   3 |     |     |
+| 0x20 |   3 |   2 |     |     |   2 |   2 |   2 |     |
+| 0x28 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
+| 0x30 |   2 |   2 |     |     |     |   2 |   2 |     |
+| 0x38 |   1 |   3 |     |     |     |   3 |   3 |     |
 | 0x40 |     |   2 |     |     |     |   2 |     |     |
 | 0x48 |   1 |   2 |   1 |     |   3 |   3 |   2 |     |
 | 0x50 |   2 |   2 |     |     |     |   2 |   3 |     |
@@ -156,10 +156,10 @@
 | 0x08 |   3 |     |   2 |     |     |     |   6 |     |
 | 0x10 | 2-4 |     |     |     |     |     |   6 |     |
 | 0x18 |   2 |     |     |     |     |     |   7 |     |
-| 0x20 |   6 |   6 |     |     |   3 |   3 |     |     |
-| 0x28 |   4 |   2 |     |     |   4 |   4 |     |     |
-| 0x30 | 2-4 | 5,6 |     |     |     |   4 |     |     |
-| 0x38 |   2 | 4,5 |     |     |     | 4,5 |     |     |
+| 0x20 |   6 |   6 |     |     |   3 |   3 |   5 |     |
+| 0x28 |   4 |   2 |   2 |     |   4 |   4 |   6 |     |
+| 0x30 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
+| 0x38 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
 | 0x40 |     |   6 |     |     |     |   3 |   5 |     |
 | 0x48 |   3 |   2 |   2 |     |   3 |   4 |   6 |     |
 | 0x50 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
@@ -342,7 +342,16 @@
 
 - ROL
 
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Accumulator  | $2A |     1 | 2      |
+| ZeroPage     | $26 |     2 | 5      |
+| ZeroPage, X  | $36 |     2 | 6      |
+| Absolute     | $2E |     3 | 6      |
+| Absolute, X  | $3E |     3 | 7      |
+
 - ROR
+
 
 
 ###  Bitwise
