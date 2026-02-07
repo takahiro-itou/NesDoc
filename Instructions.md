@@ -33,7 +33,7 @@
 | 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX | DEC zX |        |
 | 0xD8 | CLD    | CMP aY |        |        |        | CMP aX | DEC aX |        |
 | 0xE0 | CPX #  |        |        |        | CPX zp |        | INC zp |        |
-| 0xE8 | INX    |        |        |        | CPX ab |        | INC ab |        |
+| 0xE8 | INX    |        | NOP    |        | CPX ab |        | INC ab |        |
 | 0xF0 | BEQ r  |        |        |        |        |        | INC zX |        |
 | 0xF8 | SED    |        |        |        |        |        | INC aX |        |
 
@@ -70,7 +70,7 @@
 | 0xD0 | BNE | CMP |     |     |     | CMP | DEC |     |
 | 0xD8 | CLD | CMP |     |     |     | CMP | DEC |     |
 | 0xE0 | CPX |     |     |     | CPX |     | INC |     |
-| 0xE8 | INX |     |     |     | CPX |     | INC |     |
+| 0xE8 | INX |     | NOP |     | CPX |     | INC |     |
 | 0xF0 | BEQ |     |     |     |     |     | INC |     |
 | 0xF8 | SED |     |     |     |     |     | INC |     |
 
@@ -107,7 +107,7 @@
 | 0xD0 | rel | i,Y |     |     |     | z,X | z,X |     |
 | 0xD8 | imp | a,Y |     |     |     | a,X | a,X |     |
 | 0xE0 | #im |     |     |     | zp  |     | zp  |     |
-| 0xE8 | imp |     |     |     | abs |     | abs |     |
+| 0xE8 | imp |     | imp |     | abs |     | abs |     |
 | 0xF0 | rel |     |     |     |     |     | z,X |     |
 | 0xF8 | imp |     |     |     |     |     | a,X |     |
 
@@ -144,7 +144,7 @@
 | 0xD0 |   2 |   2 |     |     |     |   2 |   2 |     |
 | 0xD8 |   1 |   3 |     |     |     |   3 |   3 |     |
 | 0xE0 |   2 |     |     |     |   2 |     |   2 |     |
-| 0xE8 |   1 |     |     |     |   3 |     |   3 |     |
+| 0xE8 |   1 |     |   1 |     |   3 |     |   3 |     |
 | 0xF0 |   2 |     |     |     |     |     |   2 |     |
 | 0xF8 |   1 |     |     |     |     |     |   3 |     |
 
@@ -181,7 +181,7 @@
 | 0xD0 | 2-4 | 5,6 |     |     |     |   4 |   6 |     |
 | 0xD8 |   2 | 4,5 |     |     |     | 4,5 |   7 |     |
 | 0xE0 |   2 |     |     |     |   3 |     |   5 |     |
-| 0xE8 |   2 |     |     |     |   4 |     |   6 |     |
+| 0xE8 |   2 |     |   2 |     |   4 |     |   6 |     |
 | 0xF0 | 2-4 |     |     |     |     |     |   6 |     |
 | 0xF8 |   2 |     |     |     |     |     |   7 |     |
 
@@ -560,3 +560,7 @@
 ###  Other
 
 - NOP
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| Implied      | $EA |     1 | 2      |
