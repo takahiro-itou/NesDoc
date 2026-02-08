@@ -32,10 +32,10 @@
 | 0xC8 |        |        |        | SBX #i |        |        |        | DCP ab |
 | 0xD0 |        |        | HLT    | DCP iY | DOP zX |        |        | DCP zX |
 | 0xD8 |        |        | NOP    | DCP aY | TOP aX |        |        | DCP aX |
-| 0xE0 |        |        | DOP #i |        |        |        |        |        |
-| 0xE8 |        |        |        | SBC #i |        |        |        |        |
-| 0xF0 |        |        | HLT    |        | DOP zX |        |        |        |
-| 0xF8 |        |        | NOP    |        | TOP aX |        |        |        |
+| 0xE0 |        |        | DOP #i | ISB iX |        |        |        | ISB zp |
+| 0xE8 |        |        |        | SBC #i |        |        |        | ISB ab |
+| 0xF0 |        |        | HLT    | ISB iY | DOP zX |        |        | ISB zX |
+| 0xF8 |        |        | NOP    | ISB aY | TOP aX |        |        | ISB aX |
 
 
 ###   Instructions
@@ -70,10 +70,10 @@
 | 0xC8 |     |     |     | SBX |     |     |     | DCP |
 | 0xD0 |     |     | HLT | DCP | DOP |     |     | DCP |
 | 0xD8 |     |     | NOP | DCP | TOP |     |     | DCP |
-| 0xE0 |     |     | DOP |     |     |     |     |     |
-| 0xE8 |     |     |     | SBC |     |     |     |     |
-| 0xF0 |     |     | HLT |     | DOP |     |     |     |
-| 0xF8 |     |     | NOP |     | TOP |     |     |     |
+| 0xE0 |     |     | DOP | ISB |     |     |     | ISB |
+| 0xE8 |     |     |     | SBC |     |     |     | ISB |
+| 0xF0 |     |     | HLT | ISB | DOP |     |     | ISB |
+| 0xF8 |     |     | NOP | ISB | TOP |     |     | ISB |
 
 ###   Addressing
 
@@ -107,10 +107,10 @@
 | 0xC8 |     |     |     | #im |     |     |     | abs |
 | 0xD0 |     |     | kil | i,Y | z,X |     |     | z,X |
 | 0xD8 |     |     | imp | a,Y | a,X |     |     | a,X |
-| 0xE0 |     |     | #im |     |     |     |     |     |
-| 0xE8 |     |     |     | #im |     |     |     |     |
-| 0xF0 |     |     | kil |     | z,X |     |     |     |
-| 0xF8 |     |     | imp |     | a,X |     |     |     |
+| 0xE0 |     |     | #im | i,X |     |     |     | zp  |
+| 0xE8 |     |     |     | #im |     |     |     | abs |
+| 0xF0 |     |     | kil | i,Y | z,X |     |     | z,X |
+| 0xF8 |     |     | imp | a,Y | a,X |     |     | a,X |
 
 ###   Number of Bytes
 
@@ -141,13 +141,13 @@
 | 0xB0 |     |     |   1 |   2 |     |     |     |   2 |
 | 0xB8 |     |     |     |   3 |     |     |     |   3 |
 | 0xC0 |     |     |   2 |   2 |     |     |     |   2 |
-| 0xC8 |     |     |   2 |     |     |     |     |   3 |
+| 0xC8 |     |     |   2 |   2 |     |     |     |   3 |
 | 0xD0 |     |     |   1 |   2 |   2 |     |     |   2 |
 | 0xD8 |     |     |   1 |   3 |   3 |     |     |   3 |
-| 0xE0 |     |     |   2 |     |     |     |     |     |
-| 0xE8 |     |     |   2 |     |     |     |     |     |
-| 0xF0 |     |     |   1 |     |   2 |     |     |     |
-| 0xF8 |     |     |   1 |     |   3 |     |     |     |
+| 0xE0 |     |     |   2 |   2 |     |     |     |   2 |
+| 0xE8 |     |     |   2 |   2 |     |     |     |   3 |
+| 0xF0 |     |     |   1 |   2 |   2 |     |     |   2 |
+| 0xF8 |     |     |   1 |   3 |   3 |     |     |   3 |
 
 ###   Cycles
 
@@ -178,13 +178,13 @@
 | 0xB0 |     |     |   ? |   5 |     |     |     |   4 |
 | 0xB8 |     |     |     |   4 |     |     |     |   4 |
 | 0xC0 |     |     |   2 |   8 |     |     |     |   5 |
-| 0xC8 |     |     |   2 |     |     |     |     |   6 |
+| 0xC8 |     |     |   2 |   2 |     |     |     |   6 |
 | 0xD0 |     |     |   ? |   8 |   4 |     |     |   6 |
 | 0xD8 |     |     |   2 |   7 |   4 |     |     |   7 |
-| 0xE0 |     |     |   2 |     |     |     |     |     |
-| 0xE8 |     |     |   2 |     |     |     |     |     |
-| 0xF0 |     |     |   ? |     |   4 |     |     |     |
-| 0xF8 |     |     |   2 |     |   4 |     |     |     |
+| 0xE0 |     |     |   2 |   8 |     |     |     |   5 |
+| 0xE8 |     |     |   2 |   2 |     |     |     |   6 |
+| 0xF0 |     |     |   ? |   8 |   4 |     |     |   6 |
+| 0xF8 |     |     |   2 |   7 |   4 |     |     |   7 |
 
 
 ##  Details
@@ -307,6 +307,22 @@
 | Absolute, Y  | $DB |     3 | 7      |
 | (Indirect,X) | $C3 |     2 | 8      |
 | (Indirect),Y | $D3 |     2 | 8      |
+
+
+###   ISB
+
+- INC + SBC
+- ISB {adr} := INC + CMP{adr}
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $E7 |     2 | 5      |
+| ZeroPage, X  | $F7 |     2 | 6      |
+| Absolute     | $EF |     3 | 6      |
+| Absolute, X  | $FF |     3 | 7      |
+| Absolute, Y  | $FB |     3 | 7      |
+| (Indirect,X) | $E3 |     2 | 8      |
+| (Indirect),Y | $F3 |     2 | 8      |
 
 
 ###   LAS

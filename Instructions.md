@@ -32,10 +32,10 @@
 | 0xC8 | INY    | CMP #  | DEX    | sbx #  | CPY ab | CMP ab | DEC ab | dcp ab |
 | 0xD0 | BNE r  | CMP iY | hlt    | dcp iY | dop zX | CMP zX | DEC zX | dcp zX |
 | 0xD8 | CLD    | CMP aY | nop    | dcp aY | top aX | CMP aX | DEC aX | dcp aX |
-| 0xE0 | CPX #  | SBC iX | dop #  |        | CPX zp | SBC zp | INC zp |        |
-| 0xE8 | INX    | SBC #  | NOP    | sbc #  | CPX ab | SBC ab | INC ab |        |
-| 0xF0 | BEQ r  | SBC iY | hlt    |        | dop zX | SBC zX | INC zX |        |
-| 0xF8 | SED    | SBC aY | nop    |        | top aX | SBC aX | INC aX |        |
+| 0xE0 | CPX #  | SBC iX | dop #  | isb iX | CPX zp | SBC zp | INC zp | isb zp |
+| 0xE8 | INX    | SBC #  | NOP    | sbc #  | CPX ab | SBC ab | INC ab | isb ab |
+| 0xF0 | BEQ r  | SBC iY | hlt    | isb iY | dop zX | SBC zX | INC zX | isb zX |
+| 0xF8 | SED    | SBC aY | nop    | isb aY | top aX | SBC aX | INC aX | isb aX |
 
 ###   Instructions
 
@@ -69,10 +69,10 @@
 | 0xC8 | INY | CMP | DEX | sbx | CPY | CMP | DEC | dcp |
 | 0xD0 | BNE | CMP | hlt | dcp | dop | CMP | DEC | dcp |
 | 0xD8 | CLD | CMP | nop | dcp | top | CMP | DEC | dcp |
-| 0xE0 | CPX | SBC | dop |     | CPX | SBC | INC |     |
-| 0xE8 | INX | SBC | NOP | sbc | CPX | SBC | INC |     |
-| 0xF0 | BEQ | SBC | hlt |     | dop | SBC | INC |     |
-| 0xF8 | SED | SBC | nop |     | top | SBC | INC |     |
+| 0xE0 | CPX | SBC | dop | isb | CPX | SBC | INC | isb |
+| 0xE8 | INX | SBC | NOP | sbc | CPX | SBC | INC | isb |
+| 0xF0 | BEQ | SBC | hlt | isb | dop | SBC | INC | isb |
+| 0xF8 | SED | SBC | nop | isb | top | SBC | INC | isb |
 
 ###   Addressing
 
@@ -106,10 +106,10 @@
 | 0xC8 | imp | #im | imp | #im | abs | abs | abs | abs |
 | 0xD0 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
 | 0xD8 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
-| 0xE0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
-| 0xE8 | imp | #im | imp | #im | abs | abs | abs |     |
-| 0xF0 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0xF8 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
+| 0xE0 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
+| 0xE8 | imp | #im | imp | #im | abs | abs | abs | abs |
+| 0xF0 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0xF8 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
 
 ###   Number of Bytes
 
@@ -143,10 +143,10 @@
 | 0xC8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
 | 0xD0 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
 | 0xD8 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
-| 0xE0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
-| 0xE8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |     |
-| 0xF0 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0xF8 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
+| 0xE0 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
+| 0xE8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0xF0 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0xF8 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
 
 ###   Cycles
 
@@ -180,10 +180,10 @@
 | 0xC8 |   2 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
 | 0xD0 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
 | 0xD8 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
-| 0xE0 |   2 |   6 |   2 |     |   3 |   3 |   5 |     |
-| 0xE8 |   2 |   2 |   2 |   2 |   4 |   4 |   6 |     |
-| 0xF0 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0xF8 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
+| 0xE0 |   2 |   6 |   2 |   8 |   3 |   3 |   5 |   5 |
+| 0xE8 |   2 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
+| 0xF0 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0xF8 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
 
 
 ##  Details
