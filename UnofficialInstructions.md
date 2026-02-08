@@ -22,7 +22,7 @@
 | 0x78 |        |        | NOP    | RRA aY | TOP aX |        |        | RRA aX |
 | 0x80 | DOP #i |        | DOP #i | SAX iX |        |        |        | SAX zp |
 | 0x88 |        | DOP #i |        | ANE #i |        |        |        | SAX ab |
-| 0x90 |        |        | HLT    |        |        |        |        | SAX zY |
+| 0x90 |        |        | HLT    | SHA iY |        |        |        | SAX zY |
 | 0x98 |        |        |        | SHS aY | SHY aY |        | SHX aY | SHA aY |
 | 0xA0 |        |        |        |        |        |        |        |        |
 | 0xA8 |        |        |        | LAX #i |        |        |        |        |
@@ -60,7 +60,7 @@
 | 0x78 |     |     | NOP | RRA | TOP |     |     | RRA |
 | 0x80 | DOP |     | DOP | SAX |     |     |     | SAX |
 | 0x88 |     | DOP |     | ANE |     |     |     | SAX |
-| 0x90 |     |     | HLT |     |     |     |     | SAX |
+| 0x90 |     |     | HLT | SHA |     |     |     | SAX |
 | 0x98 |     |     |     | SHS | SHY |     | SHX | SHA |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     | LAX |     |     |     |     |
@@ -97,7 +97,7 @@
 | 0x78 |     |     | imp | a,Y | a,X |     |     | a,X |
 | 0x80 | #im |     | #im | i,X |     |     |     | zp  |
 | 0x88 |     | #im |     | #im |     |     |     | abs |
-| 0x90 |     |     | kil |     |     |     |     | z,Y |
+| 0x90 |     |     | kil | i,Y |     |     |     | z,Y |
 | 0x98 |     |     |     | a,Y | a,X |     | a,Y | a,Y |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |     | #im |     |     |     |     |
@@ -134,7 +134,7 @@
 | 0x78 |     |     |   1 |   3 |   3 |     |     |   3 |
 | 0x80 |   2 |     |   2 |   2 |     |     |     |   2 |
 | 0x88 |     |   2 |   2 |     |     |     |     |   3 |
-| 0x90 |     |     |   1 |     |     |     |     |   2 |
+| 0x90 |     |     |   1 |   2 |     |     |     |   2 |
 | 0x98 |     |     |     |   3 |   3 |     |   3 |   3 |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |   2 |     |     |     |     |     |
@@ -171,7 +171,7 @@
 | 0x78 |     |     |   2 |   7 |   4 |     |     |   7 |
 | 0x80 |   2 |     |   2 |   6 |     |     |     |   3 |
 | 0x88 |     |   2 |   2 |     |     |     |     |   4 |
-| 0x90 |     |     |   ? |     |     |     |     |   4 |
+| 0x90 |     |     |   ? |   6 |     |     |     |   4 |
 | 0x98 |     |     |     |   5 |   5 |     |   5 |   5 |
 | 0xA0 |     |     |     |     |     |     |     |     |
 | 0xA8 |     |     |   2 |     |     |     |     |     |
@@ -359,9 +359,12 @@
 
 ###   SHA(AHX), SHS (TAS,XAS), SHX, SHY
 
-- SHA {adr} : {adr} <- A & X & H (AHX)
-- SHS {adr} : S <- A & X; {adr} <- S & H; (TAS)
-- XAS {adr} : S <- A & X; {adr} <- S & (({adr} - Y >> 8) + 1);
+- SHA {adr} : UNSTABLE (AHX)
+    - {adr} <- A & X & H;
+    - {adr} <- A & X & ((A-Y) >> 8) + 1));
+- SHS {adr} : UNSTABLE (TAS, XAS)
+    - S <- A & X; {adr} <- S & H;
+    - S <- A & X; {adr} <- S & (({adr} - Y >> 8) + 1);
 - SHX {adr} : {adr} <- X & H
 - SHY {adr} : {adr} <- Y & H
 
@@ -371,6 +374,7 @@
 | SHS | Absolute, Y  | $9B |     3 | 5      |
 | XAS | Absolute, Y  | $9B |     3 | 5      |
 | SHX | Absolute, Y  | $9E |     3 | 5      |
+| SHA | (Indirect),Y | $93 |     2 | 6      |
 | SHA | Absolute, Y  | $9F |     3 | 5      |
 
 

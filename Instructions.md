@@ -22,7 +22,7 @@
 | 0x78 | SED    | ADC aY | nop    | rra aY | top aX | ADC aX | ROR aX | rra aX |
 | 0x80 | dop #  | STA iX | dop #  | sax iX | STY zp | STA zp | STX zp | sax zp |
 | 0x88 | DEY    | dop #  | TXA    | ane #  | STY ab | STA ab | STX ab | sax ab |
-| 0x90 | BCC r  | STA iY | hlt    |        | STY zX | STA zX | STX zY | sax zY |
+| 0x90 | BCC r  | STA iY | hlt    | sha iY | STY zX | STA zX | STX zY | sax zY |
 | 0x98 | TYA    | STA aY | TXS    | shs aY | shy aX | STA aX | shx aY | sha aY |
 | 0xA0 | LDY #  | LDA iX | LDX #  |        | LDY zp | LDA zp | LDX zp |        |
 | 0xA8 | TAY    | LDA #  | TAX    | lax #  | LDY ab | LDA ab | LDX ab |        |
@@ -59,7 +59,7 @@
 | 0x78 | SEI | ADC | nop | rra | top | ADC | ROR | rra |
 | 0x80 | dop | STA | dop | sax | STY | STA | STX | sax |
 | 0x88 | DEY | dop | TXA | ane | STY | STA | STX | sax |
-| 0x90 | BCC | STA | hlt |     | STY | STA | STX | sax |
+| 0x90 | BCC | STA | hlt | sha | STY | STA | STX | sax |
 | 0x98 | TYA | STA | TXS | shs | shy | STA | shx | sha |
 | 0xA0 | LDY | LDA | LDX |     | LDY | LDA | LDX |     |
 | 0xA8 | TAY | LDA | TAX | lax | LDY | LDA | LDX |     |
@@ -96,7 +96,7 @@
 | 0x78 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
 | 0x80 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
 | 0x88 | imp | #im | imp | #im | abs | abs | abs | abs |
-| 0x90 | rel | i,Y | kil |     | a,X | z,X | z,Y | z,Y |
+| 0x90 | rel | i,Y | kil | i,Y | a,X | z,X | z,Y | z,Y |
 | 0x98 | imp | a,Y | imp | a,Y | a,X | a,X | a,Y | a,Y |
 | 0xA0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
 | 0xA8 | imp | #im | imp | #im | abs | abs | abs |     |
@@ -133,7 +133,7 @@
 | 0x78 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
 | 0x80 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
 | 0x88 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
-| 0x90 |   2 |   2 |   ? |     |   2 |   2 |   2 |   2 |
+| 0x90 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
 | 0x98 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
 | 0xA0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
 | 0xA8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |     |
@@ -170,7 +170,7 @@
 | 0x78 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
 | 0x80 |   2 |   6 |   2 |   6 |   3 |   3 |   3 |   3 |
 | 0x88 |   2 |   2 |   2 |   2 |   4 |   4 |   4 |   4 |
-| 0x90 | 2-4 |   6 |   ? |     |   4 |   4 |   4 |   4 |
+| 0x90 | 2-4 |   6 |   ? |   6 |   4 |   4 |   4 |   4 |
 | 0x98 |   2 |   5 |   2 |   5 |   5 |   5 |   5 |   5 |
 | 0xA0 |   2 |   6 |   2 |     |   3 |   3 |   3 |     |
 | 0xA8 |   2 |   2 |   2 |   2 |   4 |   4 |   4 |     |
