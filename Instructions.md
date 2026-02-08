@@ -4,111 +4,111 @@
 
 |      |  + 00  |  + 01  |  + 02  |  + 03  |  + 04  |  + 05  |  + 06  |  + 07  |
 |-----:|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
-| 0x00 | BRK #  | ORA iX |        |        |        | ORA zp | ASL zp |        |
+| 0x00 | BRK #  | ORA iX | HLT    |        |        | ORA zp | ASL zp |        |
 | 0x08 | PHP    | ORA #  | ASL A  |        |        | ORA ab | ASL ab |        |
-| 0x10 | BPL r  | ORA iY |        |        |        | ORA zX | ASL zX |        |
+| 0x10 | BPL r  | ORA iY | HLT    |        |        | ORA zX | ASL zX |        |
 | 0x18 | CLC    | ORA aY |        |        |        | ORA aX | ASL aX |        |
-| 0x20 | JSR ab | AND iX |        |        | BIT zp | AND zp | ROL zp |        |
+| 0x20 | JSR ab | AND iX | HLT    |        | BIT zp | AND zp | ROL zp |        |
 | 0x28 | PLP    | AND #  | ROL A  |        | BIT ab | AND ab | ROL ab |        |
-| 0x30 | BMI r  | AND iY |        |        |        | AND zX | ROL zX |        |
+| 0x30 | BMI r  | AND iY | HLT    |        |        | AND zX | ROL zX |        |
 | 0x38 | SEC    | AND aY |        |        |        | AND aX | ROL aX |        |
-| 0x40 | RTI    | EOR iX |        |        |        | EOR zp | LSR zp |        |
+| 0x40 | RTI    | EOR iX | HLT    |        |        | EOR zp | LSR zp |        |
 | 0x48 | PHA    | EOR #  | LSR A  |        | JMP ab | EOR ab | LSR ab |        |
-| 0x50 | BVC r  | EOR iY |        |        |        | EOR zX | LSR zX |        |
+| 0x50 | BVC r  | EOR iY | HLT    |        |        | EOR zX | LSR zX |        |
 | 0x58 | CLI    | EOR aY |        |        |        | EOR aX | LSR aX |        |
-| 0x60 | RTS    | ADC iX |        |        |        | ADC zp | ROR zp |        |
+| 0x60 | RTS    | ADC iX | HLT    |        |        | ADC zp | ROR zp |        |
 | 0x68 | PLA    | ADC #  | ROR A  |        | JMP id | ADC ab | ROR ab |        |
-| 0x70 | BVS r  | ADC iY |        |        |        | ADC zX | ROR zX |        |
+| 0x70 | BVS r  | ADC iY | HLT    |        |        | ADC zX | ROR zX |        |
 | 0x78 | SED    | ADC aY |        |        |        | ADC aX | ROR aX |        |
 | 0x80 |        | STA iX |        |        | STY zp | STA zp | STX zp |        |
 | 0x88 | DEY    |        | TXA    |        | STY ab | STA ab | STX ab |        |
-| 0x90 | BCC r  | STA iY |        |        | STY zX | STA zX | STX zY |        |
+| 0x90 | BCC r  | STA iY | HLT    |        | STY zX | STA zX | STX zY |        |
 | 0x98 | TYA    | STA aY | TXS    |        |        | STA aX |        |        |
 | 0xA0 | LDY #  | LDA iX | LDX #  |        | LDY zp | LDA zp | LDX zp |        |
 | 0xA8 | TAY    | LDA #  | TAX    |        | LDY ab | LDA ab | LDX ab |        |
-| 0xB0 | BCS r  | LDA iY |        |        | LDY zX | LDA zX | LDX zY |        |
+| 0xB0 | BCS r  | LDA iY | HLT    |        | LDY zX | LDA zX | LDX zY |        |
 | 0xB8 | CLV    | LDA aY | TSX    |        | LDY aX | LDA aX | LDX aY |        |
 | 0xC0 | CPY #  | CMP iX |        |        | CPY zp | CMP zp | DEC zp |        |
 | 0xC8 | INY    | CMP #  | DEX    |        | CPY ab | CMP ab | DEC ab |        |
-| 0xD0 | BNE r  | CMP iY |        |        |        | CMP zX | DEC zX |        |
+| 0xD0 | BNE r  | CMP iY | HLT    |        |        | CMP zX | DEC zX |        |
 | 0xD8 | CLD    | CMP aY |        |        |        | CMP aX | DEC aX |        |
 | 0xE0 | CPX #  | SBC iX |        |        | CPX zp | SBC zp | INC zp |        |
 | 0xE8 | INX    | SBC #  | NOP    |        | CPX ab | SBC ab | INC ab |        |
-| 0xF0 | BEQ r  | SBC iY |        |        |        | SBC zX | INC zX |        |
+| 0xF0 | BEQ r  | SBC iY | HLT    |        |        | SBC zX | INC zX |        |
 | 0xF8 | SED    | SBC aY |        |        |        | SBC aX | INC aX |        |
 
 ###   Instructions
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0x00 | BRK | ORA |     |     |     | ORA | ASL |     |
+| 0x00 | BRK | ORA | HLT |     |     | ORA | ASL |     |
 | 0x08 | PHP | ORA | ASL |     |     | ORA | ASL |     |
-| 0x10 | BPL | ORA |     |     |     | ORA | ASL |     |
+| 0x10 | BPL | ORA | HLT |     |     | ORA | ASL |     |
 | 0x18 | CLC | ORA |     |     |     | ORA | ASL |     |
-| 0x20 | JSR | AND |     |     | BIT | AND | ROL |     |
+| 0x20 | JSR | AND | HLT |     | BIT | AND | ROL |     |
 | 0x28 | PLP | AND | ROL |     | BIT | AND | ROL |     |
-| 0x30 | BMI | AND |     |     |     | AND | ROL |     |
+| 0x30 | BMI | AND | HLT |     |     | AND | ROL |     |
 | 0x38 | SEC | AND |     |     |     | AND | ROL |     |
-| 0x40 | RTI | EOR |     |     |     | EOR | LSR |     |
+| 0x40 | RTI | EOR | HLT |     |     | EOR | LSR |     |
 | 0x48 | PHA | EOR | LSR |     | JMP | EOR | LSR |     |
-| 0x50 | BVC | EOR |     |     |     | EOR | LSR |     |
+| 0x50 | BVC | EOR | HLT |     |     | EOR | LSR |     |
 | 0x58 | CLI | EOR |     |     |     | EOR | LSR |     |
-| 0x60 | RTS | ADC |     |     |     | ADC | ROR |     |
+| 0x60 | RTS | ADC | HLT |     |     | ADC | ROR |     |
 | 0x68 | PLA | ADC | ROR |     | JMP | ADC | ROR |     |
-| 0x70 | BVS | ADC |     |     |     | ADC | ROR |     |
+| 0x70 | BVS | ADC | HLT |     |     | ADC | ROR |     |
 | 0x78 | SEI | ADC |     |     |     | ADC | ROR |     |
 | 0x80 |     | STA |     |     | STY | STA | STX |     |
 | 0x88 | DEY |     | TXA |     | STY | STA | STX |     |
-| 0x90 | BCC | STA |     |     | STY | STA | STX |     |
+| 0x90 | BCC | STA | HLT |     | STY | STA | STX |     |
 | 0x98 | TYA | STA | TXS |     |     | STA |     |     |
 | 0xA0 | LDY | LDA | LDX |     | LDY | LDA | LDX |     |
 | 0xA8 | TAY | LDA | TAX |     | LDY | LDA | LDX |     |
-| 0xB0 | BCS | LDA |     |     | LDY | LDA | LDX |     |
+| 0xB0 | BCS | LDA | HLT |     | LDY | LDA | LDX |     |
 | 0xB8 | CLV | LDA | TSX |     | LDY | LDA | LDX |     |
 | 0xC0 | CPY | CMP |     |     | CPY | CMP | DEC |     |
 | 0xC8 | INY | CMP | DEX |     | CPY | CMP | DEC |     |
-| 0xD0 | BNE | CMP |     |     |     | CMP | DEC |     |
+| 0xD0 | BNE | CMP | HLT |     |     | CMP | DEC |     |
 | 0xD8 | CLD | CMP |     |     |     | CMP | DEC |     |
 | 0xE0 | CPX | SBC |     |     | CPX | SBC | INC |     |
 | 0xE8 | INX | SBC | NOP |     | CPX | SBC | INC |     |
-| 0xF0 | BEQ | SBC |     |     |     | SBC | INC |     |
+| 0xF0 | BEQ | SBC | HLT |     |     | SBC | INC |     |
 | 0xF8 | SED | SBC |     |     |     | SBC | INC |     |
 
 ###   Addressing
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0x00 | imp | i,X |     |     |     | zp  | zp  |     |
+| 0x00 | imp | i,X | kil |     |     | zp  | zp  |     |
 | 0x08 | imp | #im | acc |     |     | abs | abs |     |
-| 0x10 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x10 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0x18 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x20 | abs | i,X |     |     | zp  | zp  | zp  |     |
+| 0x20 | abs | i,X | kil |     | zp  | zp  | zp  |     |
 | 0x28 | imp | #im | acc |     | abs | abs | abs |     |
-| 0x30 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x30 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0x38 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x40 | imp | i,X |     |     |     | zp  | zp  |     |
+| 0x40 | imp | i,X | kil |     |     | zp  | zp  |     |
 | 0x48 | imp | #im | acc |     | abs | abs | abs |     |
-| 0x50 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x50 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0x58 | imp | a,Y |     |     |     | a,X | a,X |     |
-| 0x60 | imp | i,X |     |     |     | zp  | zp  |     |
+| 0x60 | imp | i,X | kil |     |     | zp  | zp  |     |
 | 0x68 | imp | #im | acc |     | ind | abs | abs |     |
-| 0x70 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0x70 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0x78 | imp | a,Y |     |     |     | a,X | a,X |     |
 | 0x80 |     | i,X |     |     |     |     | zp  |     |
 | 0x88 | imp |     | imp |     |     |     | abs |     |
-| 0x90 | rel | i,Y |     |     |     |     | z,X |     |
+| 0x90 | rel | i,Y | kil |     |     |     | z,X |     |
 | 0x98 | imp | a,Y | imp |     |     |     | a,X |     |
 | 0xA0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
 | 0xA8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xB0 | rel | i,Y |     |     | z,X | z,X | z,Y |     |
+| 0xB0 | rel | i,Y | kil |     | z,X | z,X | z,Y |     |
 | 0xB8 | imp | a,Y | imp |     | a,X | a,X | a,Y |     |
 | 0xC0 | #im | i,X |     |     | zp  | zp  | zp  |     |
 | 0xC8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xD0 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0xD0 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0xD8 | imp | a,Y |     |     |     | a,X | a,X |     |
 | 0xE0 | #im | i,X |     |     | zp  | zp  | zp  |     |
 | 0xE8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xF0 | rel | i,Y |     |     |     | z,X | z,X |     |
+| 0xF0 | rel | i,Y | kil |     |     | z,X | z,X |     |
 | 0xF8 | imp | a,Y |     |     |     | a,X | a,X |     |
 
 ###   Number of Bytes
