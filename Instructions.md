@@ -16,10 +16,10 @@
 | 0x48 | PHA    | EOR #  | LSR A  | alr #  | JMP ab | EOR ab | LSR ab | sre ab |
 | 0x50 | BVC r  | EOR iY | hlt    | str iY | dop zX | EOR zX | LSR zX | sre zX |
 | 0x58 | CLI    | EOR aY | nop    | sre aY | top aX | EOR aX | LSR aX | sre aX |
-| 0x60 | RTS    | ADC iX | hlt    |        | dop zp | ADC zp | ROR zp |        |
-| 0x68 | PLA    | ADC #  | ROR A  | arr #  | JMP id | ADC ab | ROR ab |        |
-| 0x70 | BVS r  | ADC iY | hlt    |        | dop zX | ADC zX | ROR zX |        |
-| 0x78 | SED    | ADC aY | nop    |        | top aX | ADC aX | ROR aX |        |
+| 0x60 | RTS    | ADC iX | hlt    | rra iX | dop zp | ADC zp | ROR zp | rra zp |
+| 0x68 | PLA    | ADC #  | ROR A  | arr #  | JMP id | ADC ab | ROR ab | rra ab |
+| 0x70 | BVS r  | ADC iY | hlt    | rra iY | dop zX | ADC zX | ROR zX | rra zX |
+| 0x78 | SED    | ADC aY | nop    | rra aY | top aX | ADC aX | ROR aX | rra aX |
 | 0x80 | dop #  | STA iX | dop #  |        | STY zp | STA zp | STX zp |        |
 | 0x88 | DEY    | dop #  | TXA    |        | STY ab | STA ab | STX ab |        |
 | 0x90 | BCC r  | STA iY | hlt    |        | STY zX | STA zX | STX zY |        |
@@ -53,10 +53,10 @@
 | 0x48 | PHA | EOR | LSR | alr | JMP | EOR | LSR | sre |
 | 0x50 | BVC | EOR | hlt | sre | dop | EOR | LSR | sre |
 | 0x58 | CLI | EOR | nop | sre | top | EOR | LSR | sre |
-| 0x60 | RTS | ADC | hlt |     | dop | ADC | ROR |     |
-| 0x68 | PLA | ADC | ROR | arr | JMP | ADC | ROR |     |
-| 0x70 | BVS | ADC | hlt |     | dop | ADC | ROR |     |
-| 0x78 | SEI | ADC | nop |     | top | ADC | ROR |     |
+| 0x60 | RTS | ADC | hlt | rra | dop | ADC | ROR | rra |
+| 0x68 | PLA | ADC | ROR | arr | JMP | ADC | ROR | rra |
+| 0x70 | BVS | ADC | hlt | rra | dop | ADC | ROR | rra |
+| 0x78 | SEI | ADC | nop | rra | top | ADC | ROR | rra |
 | 0x80 | dop | STA | dop |     | STY | STA | STX |     |
 | 0x88 | DEY | dop | TXA |     | STY | STA | STX |     |
 | 0x90 | BCC | STA | hlt |     | STY | STA | STX |     |
@@ -90,10 +90,10 @@
 | 0x48 | imp | #im | acc | #im | abs | abs | abs | abs |
 | 0x50 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
 | 0x58 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
-| 0x60 | imp | i,X | kil |     | zp  | zp  | zp  |     |
-| 0x68 | imp | #im | acc | #im | ind | abs | abs |     |
-| 0x70 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0x78 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
+| 0x60 | imp | i,X | kil | i,X | zp  | zp  | zp  | zp  |
+| 0x68 | imp | #im | acc | #im | ind | abs | abs | abs |
+| 0x70 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | zX  |
+| 0x78 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
 | 0x80 | #im | i,X | #im |     |     |     | zp  |     |
 | 0x88 | imp | #im | imp |     |     |     | abs |     |
 | 0x90 | rel | i,Y | kil |     |     |     | z,X |     |
@@ -127,10 +127,10 @@
 | 0x48 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
 | 0x50 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
 | 0x58 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
-| 0x60 |   1 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x68 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |     |
-| 0x70 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x78 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
+| 0x60 |   1 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x68 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x70 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x78 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
 | 0x80 |   2 |   2 |   2 |     |     |   2 |     |     |
 | 0x88 |   1 |   2 |   1 |     |     |   3 |     |     |
 | 0x90 |   2 |   2 |   ? |     |     |   2 |     |     |
@@ -164,10 +164,10 @@
 | 0x48 |   3 |   2 |   2 |   2 |   3 |   4 |   6 |   6 |
 | 0x50 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
 | 0x58 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
-| 0x60 |   6 |   6 |   ? |     |   3 |   3 |   5 |     |
-| 0x68 |   4 |   2 |   2 |   2 |   5 |   4 |   6 |     |
-| 0x70 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0x78 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
+| 0x60 |   6 |   6 |   ? |   8 |   3 |   3 |   5 |   5 |
+| 0x68 |   4 |   2 |   2 |   2 |   5 |   4 |   6 |   6 |
+| 0x70 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0x78 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
 | 0x80 |   2 |   6 |   2 |     |     |   3 |     |     |
 | 0x88 |   2 |   2 |   2 |     |     |   4 |     |     |
 | 0x90 | 2-4 |   6 |   ? |     |     |   4 |     |     |

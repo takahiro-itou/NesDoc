@@ -16,10 +16,10 @@
 | 0x48 |        |        |        | ALR #i |        |        |        | SRE ab |
 | 0x50 |        |        | HLT    | SRE iY | DOP zX |        |        | SRE zX |
 | 0x58 |        |        | NOP    | SRE aY | TOP aX |        |        | SRE aX |
-| 0x60 |        |        | HLT    |        | DOP zp |        |        |        |
-| 0x68 |        |        |        | ARR #i |        |        |        |        |
-| 0x70 |        |        | HLT    |        | DOP zX |        |        |        |
-| 0x78 |        |        | NOP    |        | TOP aX |        |        |        |
+| 0x60 |        |        | HLT    | RRA iX | DOP zp |        |        | RRA zp |
+| 0x68 |        |        |        | ARR #i |        |        |        | RRA ab |
+| 0x70 |        |        | HLT    | RRA iY | DOP zX |        |        | RRA zX |
+| 0x78 |        |        | NOP    | RRA aY | TOP aX |        |        | RRA aX |
 | 0x80 | DOP #i |        | DOP #i |        |        |        |        |        |
 | 0x88 |        | DOP #i |        |        |        |        |        |        |
 | 0x90 |        |        | HLT    |        |        |        |        |        |
@@ -54,10 +54,10 @@
 | 0x48 |     |     |     | ALR |     |     |     | SRE |
 | 0x50 |     |     | HLT | SRE | DOP |     |     | SRE |
 | 0x58 |     |     | NOP | SRE | TOP |     |     | SRE |
-| 0x60 |     |     | HLT |     | DOP |     |     |     |
-| 0x68 |     |     |     | ARR |     |     |     |     |
-| 0x70 |     |     | HLT |     | DOP |     |     |     |
-| 0x78 |     |     | NOP |     | TOP |     |     |     |
+| 0x60 |     |     | HLT | RRA | DOP |     |     | RRA |
+| 0x68 |     |     |     | ARR |     |     |     | RRA |
+| 0x70 |     |     | HLT | RRA | DOP |     |     | RRA |
+| 0x78 |     |     | NOP | RRA | TOP |     |     | RRA |
 | 0x80 | DOP |     | DOP |     |     |     |     |     |
 | 0x88 |     | DOP |     |     |     |     |     |     |
 | 0x90 |     |     | HLT |     |     |     |     |     |
@@ -91,10 +91,10 @@
 | 0x48 |     |     |     | #im |     |     |     | abs |
 | 0x50 |     |     | kil | i,Y | z,X |     |     | z,X |
 | 0x58 |     |     | imp | a,Y | a,X |     |     | a,X |
-| 0x60 |     |     | kil |     |     |     |     |     |
-| 0x68 |     |     |     | #im |     |     |     |     |
-| 0x70 |     |     | kil |     | z,X |     |     |     |
-| 0x78 |     |     | imp |     | a,X |     |     |     |
+| 0x60 |     |     | kil | i,X |     |     |     | zp  |
+| 0x68 |     |     |     | #im |     |     |     | abs |
+| 0x70 |     |     | kil | i,Y | z,X |     |     | z,X |
+| 0x78 |     |     | imp | a,Y | a,X |     |     | a,X |
 | 0x80 | #im |     | #im |     |     |     |     |     |
 | 0x88 |     | #im |     |     |     |     |     |     |
 | 0x90 |     |     | kil |     |     |     |     |     |
@@ -128,10 +128,10 @@
 | 0x48 |     |     |     |   2 |     |     |     |   3 |
 | 0x50 |     |     |   1 |   2 |   2 |     |     |   2 |
 | 0x58 |     |     |   1 |   3 |   3 |     |     |   3 |
-| 0x60 |     |     |   1 |     |   2 |     |     |     |
-| 0x68 |     |     |     |   2 |     |     |     |     |
-| 0x70 |     |     |   1 |     |   2 |     |     |     |
-| 0x78 |     |     |   1 |     |   3 |     |     |     |
+| 0x60 |     |     |   1 |   2 |   2 |     |     |   2 |
+| 0x68 |     |     |     |   2 |     |     |     |   3 |
+| 0x70 |     |     |   1 |   2 |   2 |     |     |   2 |
+| 0x78 |     |     |   1 |   3 |   3 |     |     |   3 |
 | 0x80 |   2 |     |   2 |     |     |     |     |     |
 | 0x88 |     |   2 |     |     |     |     |     |     |
 | 0x90 |     |     |   1 |     |     |     |     |     |
@@ -165,10 +165,10 @@
 | 0x48 |     |     |     |   2 |     |     |     |   6 |
 | 0x50 |     |     |   ? |   8 |   4 |     |     |   6 |
 | 0x58 |     |     |   2 |   7 |   4 |     |     |   7 |
-| 0x60 |     |     |   ? |     |   3 |     |     |     |
-| 0x68 |     |     |     |   2 |     |     |     |     |
-| 0x70 |     |     |   ? |     |   4 |     |     |     |
-| 0x78 |     |     |   2 |     |   4 |     |     |     |
+| 0x60 |     |     |   ? |   8 |   3 |     |     |   5 |
+| 0x68 |     |     |     |   2 |     |     |     |   6 |
+| 0x70 |     |     |   ? |   8 |   4 |     |     |   6 |
+| 0x78 |     |     |   2 |   7 |   4 |     |     |   7 |
 | 0x80 |   2 |     |   2 |     |     |     |     |     |
 | 0x88 |     |   2 |     |     |     |     |     |     |
 | 0x90 |     |     |   ? |     |     |     |     |     |
@@ -292,6 +292,23 @@
 | (Indirect),Y | $33 |     2 | 8      |
 
 
+###   RRA
+
+- ROR + ADC
+- RRA {adr} := ROR + ADC {adr}
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| #Immediate   | N/A |  N/A  |        |
+| ZeroPage     | $67 |     2 | 5      |
+| ZeroPage, X  | $77 |     2 | 6      |
+| Absolute     | $6F |     3 | 6      |
+| Absolute, X  | $7F |     3 | 7      |
+| Absolute, Y  | $7B |     3 | 7      |
+| (Indirect,X) | $63 |     2 | 8      |
+| (Indirect),Y | $73 |     2 | 8      |
+
+
 ###   SHA(AHX), SHS (TAS,XAS), SHX, SHY
 
 - SHA {adr} : {adr} <- A & X & H (AHX)
@@ -310,7 +327,7 @@
 ###   SLO
 
 - ASL + ORA
-- SLO {adr} := ASL {adr} + ORA {adr}
+- SLO {adr} := ASL + ORA {adr}
 
 |  Addressing  | OPE | Bytes | Cycles |
 |:------------:|:---:|------:|:-------|
@@ -327,7 +344,7 @@
 ###   SRE
 
 - LSR + EOR
-- SRE {adr} := LSR {adr} + EOR {adr}
+- SRE {adr} := LSR + EOR {adr}
 
 |  Addressing  | OPE | Bytes | Cycles |
 |:------------:|:---:|------:|:-------|
