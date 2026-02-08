@@ -208,6 +208,7 @@
 |              | $D2 |     1 | ?      |
 |              | $F2 |     1 | ?      |
 
+
 ###   NOP (DOP, TOP)
 
 - 何もしないことを実行する
@@ -228,19 +229,20 @@
 | TOP | Absolute, X  | $5C |     3 | 4      |
 | DOP | ZeroPage     | $64 |     2 | 3      |
 | DOP | ZeroPage, X  | $74 |     2 | 4      |
-|     |              | $7A |       |        |
+| NOP | Implied      | $7A |     1 | 2      |
 | TOP | Absolute, X  | $7C |     3 | 4      |
 | DOP | #Immediate   | $80 |     2 | 2      |
 | DOP | #Immediate   | $82 |     2 | 2      |
 | DOP | #Immediate   | $89 |     2 | 2      |
 | DOP | #Immediate   | $C2 |     2 | 2      |
 | DOP | ZeroPage, X  | $D4 |     2 | 4      |
-|     |              | $DA |       |        |
+| NOP | Implied      | $DA |     1 | 2      |
 | TOP | Absolute, X  | $DC |     3 | 4      |
 | DOP | #Immediate   | $E2 |     2 | 2      |
 | DOP | ZeroPage, X  | $F4 |     2 | 4      |
-|     |              | $FA |       |        |
+| NOP | Implied      | $FA |     1 | 2      |
 | TOP | Absolute, X  | $FC |     3 | 4      |
+
 
 ###   ANC
 
@@ -268,6 +270,21 @@
 | Absolute, Y  | $3B |     3 | 7      |
 | (Indirect,X) | $23 |     2 | 8      |
 | (Indirect),Y | $33 |     2 | 8      |
+
+
+###   SHA(AHX), SHS (TAS,XAS), SHX, SHY
+
+- SHA {adr} : {adr} <- A & X & H (AHX)
+- SHS {adr} : S <- A & X, {adr} <- S & H (TAS, XAS)
+- SHX {adr} : {adr} <- X & H
+- SHY {adr} : {adr} <- Y & H
+
+| MNE |  Addressing  | OPE | Bytes | Cycles |
+|:---:|:------------:|:---:|------:|:-------|
+| SHY | Absolute, X  | $9C |     3 | 5      |
+| SHS | Absolute, Y  | $9B |     3 | 5      |
+| SHX | Absolute, Y  | $9E |     3 | 5      |
+| SHA | Absolute, Y  | $9F |     3 | 5      |
 
 
 ###   SLO
