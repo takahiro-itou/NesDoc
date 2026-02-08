@@ -28,10 +28,10 @@
 | 0xA8 |        |        |        | LAX #i |        |        |        | LAX ab |
 | 0xB0 |        |        | HLT    | LAX iY |        |        |        | LAX zY |
 | 0xB8 |        |        |        | LAS aY |        |        |        | LAX aY |
-| 0xC0 |        |        | DOP #i |        |        |        |        |        |
-| 0xC8 |        |        |        | SBX #i |        |        |        |        |
-| 0xD0 |        |        | HLT    |        | DOP zX |        |        |        |
-| 0xD8 |        |        | NOP    |        | TOP aX |        |        |        |
+| 0xC0 |        |        | DOP #i | DCP iX |        |        |        | DCP zp |
+| 0xC8 |        |        |        | SBX #i |        |        |        | DCP ab |
+| 0xD0 |        |        | HLT    | DCP iY | DOP zX |        |        | DCP zX |
+| 0xD8 |        |        | NOP    | DCP aY | TOP aX |        |        | DCP aX |
 | 0xE0 |        |        | DOP #i |        |        |        |        |        |
 | 0xE8 |        |        |        | SBC #i |        |        |        |        |
 | 0xF0 |        |        | HLT    |        | DOP zX |        |        |        |
@@ -66,10 +66,10 @@
 | 0xA8 |     |     |     | LAX |     |     |     | LAX |
 | 0xB0 |     |     | HLT | LAX |     |     |     | LAX |
 | 0xB8 |     |     |     | LAS |     |     |     | LAX |
-| 0xC0 |     |     | DOP |     |     |     |     |     |
-| 0xC8 |     |     |     | SBX |     |     |     |     |
-| 0xD0 |     |     | HLT |     | DOP |     |     |     |
-| 0xD8 |     |     | NOP |     | TOP |     |     |     |
+| 0xC0 |     |     | DOP | DCP |     |     |     | DCP |
+| 0xC8 |     |     |     | SBX |     |     |     | DCP |
+| 0xD0 |     |     | HLT | DCP | DOP |     |     | DCP |
+| 0xD8 |     |     | NOP | DCP | TOP |     |     | DCP |
 | 0xE0 |     |     | DOP |     |     |     |     |     |
 | 0xE8 |     |     |     | SBC |     |     |     |     |
 | 0xF0 |     |     | HLT |     | DOP |     |     |     |
@@ -103,10 +103,10 @@
 | 0xA8 |     |     |     | #im |     |     |     | abs |
 | 0xB0 |     |     | kil | i,Y |     |     |     | z,Y |
 | 0xB8 |     |     |     | a,Y |     |     |     | a,Y |
-| 0xC0 |     |     | #im |     |     |     |     |     |
-| 0xC8 |     |     |     | #im |     |     |     |     |
-| 0xD0 |     |     | kil |     | z,X |     |     |     |
-| 0xD8 |     |     | imp |     | a,X |     |     |     |
+| 0xC0 |     |     | #im | i,X |     |     |     | zp  |
+| 0xC8 |     |     |     | #im |     |     |     | abs |
+| 0xD0 |     |     | kil | i,Y | z,X |     |     | z,X |
+| 0xD8 |     |     | imp | a,Y | a,X |     |     | a,X |
 | 0xE0 |     |     | #im |     |     |     |     |     |
 | 0xE8 |     |     |     | #im |     |     |     |     |
 | 0xF0 |     |     | kil |     | z,X |     |     |     |
@@ -140,10 +140,10 @@
 | 0xA8 |     |     |   2 |   2 |     |     |     |   3 |
 | 0xB0 |     |     |   1 |   2 |     |     |     |   2 |
 | 0xB8 |     |     |     |   3 |     |     |     |   3 |
-| 0xC0 |     |     |   2 |     |     |     |     |     |
-| 0xC8 |     |     |   2 |     |     |     |     |     |
-| 0xD0 |     |     |   1 |     |   2 |     |     |     |
-| 0xD8 |     |     |   1 |     |   3 |     |     |     |
+| 0xC0 |     |     |   2 |   2 |     |     |     |   2 |
+| 0xC8 |     |     |   2 |     |     |     |     |   3 |
+| 0xD0 |     |     |   1 |   2 |   2 |     |     |   2 |
+| 0xD8 |     |     |   1 |   3 |   3 |     |     |   3 |
 | 0xE0 |     |     |   2 |     |     |     |     |     |
 | 0xE8 |     |     |   2 |     |     |     |     |     |
 | 0xF0 |     |     |   1 |     |   2 |     |     |     |
@@ -177,10 +177,10 @@
 | 0xA8 |     |     |   2 |   2 |     |     |     |   4 |
 | 0xB0 |     |     |   ? |   5 |     |     |     |   4 |
 | 0xB8 |     |     |     |   4 |     |     |     |   4 |
-| 0xC0 |     |     |   2 |     |     |     |     |     |
-| 0xC8 |     |     |   2 |     |     |     |     |     |
-| 0xD0 |     |     |   ? |     |   4 |     |     |     |
-| 0xD8 |     |     |   2 |     |   4 |     |     |     |
+| 0xC0 |     |     |   2 |   8 |     |     |     |   5 |
+| 0xC8 |     |     |   2 |     |     |     |     |   6 |
+| 0xD0 |     |     |   ? |   8 |   4 |     |     |   6 |
+| 0xD8 |     |     |   2 |   7 |   4 |     |     |   7 |
 | 0xE0 |     |     |   2 |     |     |     |     |     |
 | 0xE8 |     |     |   2 |     |     |     |     |     |
 | 0xF0 |     |     |   ? |     |   4 |     |     |     |
@@ -291,6 +291,22 @@
 |  Addressing  | OPE | Bytes | Cycles |
 |:------------:|:---:|------:|:-------|
 | #Immediate   | $CB |     2 | 2      |
+
+
+###   DCP
+
+- DEC + CMP
+- DCP {adr} := DEC + CMP{adr}
+
+|  Addressing  | OPE | Bytes | Cycles |
+|:------------:|:---:|------:|:-------|
+| ZeroPage     | $C7 |     2 | 5      |
+| ZeroPage, X  | $D7 |     2 | 6      |
+| Absolute     | $CF |     3 | 6      |
+| Absolute, X  | $DF |     3 | 7      |
+| Absolute, Y  | $DB |     3 | 7      |
+| (Indirect,X) | $C3 |     2 | 8      |
+| (Indirect),Y | $D3 |     2 | 8      |
 
 
 ###   LAS
