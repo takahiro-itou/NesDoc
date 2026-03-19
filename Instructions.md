@@ -4,186 +4,186 @@
 
 |      |  + 00  |  + 01  |  + 02  |  + 03  |  + 04  |  + 05  |  + 06  |  + 07  |
 |-----:|:-------|:-------|:-------|:-------|:-------|:-------|:-------|:-------|
-| 0x00 | BRK #  | ORA iX | hlt    |        | dop zp | ORA zp | ASL zp |        |
-| 0x08 | PHP    | ORA #  | ASL A  |        | top ab | ORA ab | ASL ab |        |
-| 0x10 | BPL r  | ORA iY | hlt    |        | dop zX | ORA zX | ASL zX |        |
-| 0x18 | CLC    | ORA aY | nop    |        | top aX | ORA aX | ASL aX |        |
-| 0x20 | JSR ab | AND iX | hlt    |        | BIT zp | AND zp | ROL zp |        |
-| 0x28 | PLP    | AND #  | ROL A  |        | BIT ab | AND ab | ROL ab |        |
-| 0x30 | BMI r  | AND iY | hlt    |        | dop zX | AND zX | ROL zX |        |
-| 0x38 | SEC    | AND aY | nop    |        | top aX | AND aX | ROL aX |        |
-| 0x40 | RTI    | EOR iX | hlt    |        | dop zp | EOR zp | LSR zp |        |
-| 0x48 | PHA    | EOR #  | LSR A  |        | JMP ab | EOR ab | LSR ab |        |
-| 0x50 | BVC r  | EOR iY | hlt    |        | dop zX | EOR zX | LSR zX |        |
-| 0x58 | CLI    | EOR aY | nop    |        | top aX | EOR aX | LSR aX |        |
-| 0x60 | RTS    | ADC iX | hlt    |        | dop zp | ADC zp | ROR zp |        |
-| 0x68 | PLA    | ADC #  | ROR A  |        | JMP id | ADC ab | ROR ab |        |
-| 0x70 | BVS r  | ADC iY | hlt    |        | dop zX | ADC zX | ROR zX |        |
-| 0x78 | SED    | ADC aY | nop    |        | top aX | ADC aX | ROR aX |        |
-| 0x80 | dop #  | STA iX | dop #  |        | STY zp | STA zp | STX zp |        |
-| 0x88 | DEY    | dop #  | TXA    |        | STY ab | STA ab | STX ab |        |
-| 0x90 | BCC r  | STA iY | hlt    |        | STY zX | STA zX | STX zY |        |
-| 0x98 | TYA    | STA aY | TXS    |        |        | STA aX |        |        |
-| 0xA0 | LDY #  | LDA iX | LDX #  |        | LDY zp | LDA zp | LDX zp |        |
-| 0xA8 | TAY    | LDA #  | TAX    |        | LDY ab | LDA ab | LDX ab |        |
-| 0xB0 | BCS r  | LDA iY | hlt    |        | LDY zX | LDA zX | LDX zY |        |
-| 0xB8 | CLV    | LDA aY | TSX    |        | LDY aX | LDA aX | LDX aY |        |
-| 0xC0 | CPY #  | CMP iX | dop #  |        | CPY zp | CMP zp | DEC zp |        |
-| 0xC8 | INY    | CMP #  | DEX    |        | CPY ab | CMP ab | DEC ab |        |
-| 0xD0 | BNE r  | CMP iY | hlt    |        | dop zX | CMP zX | DEC zX |        |
-| 0xD8 | CLD    | CMP aY | nop    |        | top aX | CMP aX | DEC aX |        |
-| 0xE0 | CPX #  | SBC iX | dop #  |        | CPX zp | SBC zp | INC zp |        |
-| 0xE8 | INX    | SBC #  | NOP    |        | CPX ab | SBC ab | INC ab |        |
-| 0xF0 | BEQ r  | SBC iY | hlt    |        | dop zX | SBC zX | INC zX |        |
-| 0xF8 | SED    | SBC aY | nop    |        | top aX | SBC aX | INC aX |        |
+| 0x00 | BRK #  | ORA iX | hlt    | slo iX | dop zp | ORA zp | ASL zp | slo zp |
+| 0x08 | PHP    | ORA #  | ASL A  | anc #  | top ab | ORA ab | ASL ab | slo ab |
+| 0x10 | BPL r  | ORA iY | hlt    | slo iY | dop zX | ORA zX | ASL zX | slo zX |
+| 0x18 | CLC    | ORA aY | nop    | slo aY | top aX | ORA aX | ASL aX | slo aX |
+| 0x20 | JSR ab | AND iX | hlt    | rla iX | BIT zp | AND zp | ROL zp | rla zp |
+| 0x28 | PLP    | AND #  | ROL A  | anc #  | BIT ab | AND ab | ROL ab | rla ab |
+| 0x30 | BMI r  | AND iY | hlt    | rla iY | dop zX | AND zX | ROL zX | rla zX |
+| 0x38 | SEC    | AND aY | nop    | rla aY | top aX | AND aX | ROL aX | rla aX |
+| 0x40 | RTI    | EOR iX | hlt    | sre iX | dop zp | EOR zp | LSR zp | sre zp |
+| 0x48 | PHA    | EOR #  | LSR A  | alr #  | JMP ab | EOR ab | LSR ab | sre ab |
+| 0x50 | BVC r  | EOR iY | hlt    | str iY | dop zX | EOR zX | LSR zX | sre zX |
+| 0x58 | CLI    | EOR aY | nop    | sre aY | top aX | EOR aX | LSR aX | sre aX |
+| 0x60 | RTS    | ADC iX | hlt    | rra iX | dop zp | ADC zp | ROR zp | rra zp |
+| 0x68 | PLA    | ADC #  | ROR A  | arr #  | JMP id | ADC ab | ROR ab | rra ab |
+| 0x70 | BVS r  | ADC iY | hlt    | rra iY | dop zX | ADC zX | ROR zX | rra zX |
+| 0x78 | SED    | ADC aY | nop    | rra aY | top aX | ADC aX | ROR aX | rra aX |
+| 0x80 | dop #  | STA iX | dop #  | sax iX | STY zp | STA zp | STX zp | sax zp |
+| 0x88 | DEY    | dop #  | TXA    | ane #  | STY ab | STA ab | STX ab | sax ab |
+| 0x90 | BCC r  | STA iY | hlt    | sha iY | STY zX | STA zX | STX zY | sax zY |
+| 0x98 | TYA    | STA aY | TXS    | shs aY | shy aX | STA aX | shx aY | sha aY |
+| 0xA0 | LDY #  | LDA iX | LDX #  | lax iX | LDY zp | LDA zp | LDX zp | lax zp |
+| 0xA8 | TAY    | LDA #  | TAX    | lax #  | LDY ab | LDA ab | LDX ab | lax ab |
+| 0xB0 | BCS r  | LDA iY | hlt    | lax iY | LDY zX | LDA zX | LDX zY | lax zY |
+| 0xB8 | CLV    | LDA aY | TSX    | las aY | LDY aX | LDA aX | LDX aY | lax aY |
+| 0xC0 | CPY #  | CMP iX | dop #  | dcp iX | CPY zp | CMP zp | DEC zp | dcp zp |
+| 0xC8 | INY    | CMP #  | DEX    | sbx #  | CPY ab | CMP ab | DEC ab | dcp ab |
+| 0xD0 | BNE r  | CMP iY | hlt    | dcp iY | dop zX | CMP zX | DEC zX | dcp zX |
+| 0xD8 | CLD    | CMP aY | nop    | dcp aY | top aX | CMP aX | DEC aX | dcp aX |
+| 0xE0 | CPX #  | SBC iX | dop #  | isb iX | CPX zp | SBC zp | INC zp | isb zp |
+| 0xE8 | INX    | SBC #  | NOP    | sbc #  | CPX ab | SBC ab | INC ab | isb ab |
+| 0xF0 | BEQ r  | SBC iY | hlt    | isb iY | dop zX | SBC zX | INC zX | isb zX |
+| 0xF8 | SED    | SBC aY | nop    | isb aY | top aX | SBC aX | INC aX | isb aX |
 
 ###   Instructions
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0x00 | BRK | ORA | hlt |     | dop | ORA | ASL |     |
-| 0x08 | PHP | ORA | ASL |     | top | ORA | ASL |     |
-| 0x10 | BPL | ORA | hlt |     | dop | ORA | ASL |     |
-| 0x18 | CLC | ORA | nop |     | top | ORA | ASL |     |
-| 0x20 | JSR | AND | hlt |     | BIT | AND | ROL |     |
-| 0x28 | PLP | AND | ROL |     | BIT | AND | ROL |     |
-| 0x30 | BMI | AND | hlt |     | dop | AND | ROL |     |
-| 0x38 | SEC | AND | nop |     | top | AND | ROL |     |
-| 0x40 | RTI | EOR | hlt |     | dop | EOR | LSR |     |
-| 0x48 | PHA | EOR | LSR |     | JMP | EOR | LSR |     |
-| 0x50 | BVC | EOR | hlt |     | dop | EOR | LSR |     |
-| 0x58 | CLI | EOR | nop |     | top | EOR | LSR |     |
-| 0x60 | RTS | ADC | hlt |     | dop | ADC | ROR |     |
-| 0x68 | PLA | ADC | ROR |     | JMP | ADC | ROR |     |
-| 0x70 | BVS | ADC | hlt |     | dop | ADC | ROR |     |
-| 0x78 | SEI | ADC | nop |     | top | ADC | ROR |     |
-| 0x80 | dop | STA | dop |     | STY | STA | STX |     |
-| 0x88 | DEY | dop | TXA |     | STY | STA | STX |     |
-| 0x90 | BCC | STA | hlt |     | STY | STA | STX |     |
-| 0x98 | TYA | STA | TXS |     |     | STA |     |     |
-| 0xA0 | LDY | LDA | LDX |     | LDY | LDA | LDX |     |
-| 0xA8 | TAY | LDA | TAX |     | LDY | LDA | LDX |     |
-| 0xB0 | BCS | LDA | hlt |     | LDY | LDA | LDX |     |
-| 0xB8 | CLV | LDA | TSX |     | LDY | LDA | LDX |     |
-| 0xC0 | CPY | CMP | dop |     | CPY | CMP | DEC |     |
-| 0xC8 | INY | CMP | DEX |     | CPY | CMP | DEC |     |
-| 0xD0 | BNE | CMP | hlt |     | dop | CMP | DEC |     |
-| 0xD8 | CLD | CMP | nop |     | top | CMP | DEC |     |
-| 0xE0 | CPX | SBC | dop |     | CPX | SBC | INC |     |
-| 0xE8 | INX | SBC | NOP |     | CPX | SBC | INC |     |
-| 0xF0 | BEQ | SBC | hlt |     | dop | SBC | INC |     |
-| 0xF8 | SED | SBC | nop |     | top | SBC | INC |     |
+| 0x00 | BRK | ORA | hlt | slo | dop | ORA | ASL | slo |
+| 0x08 | PHP | ORA | ASL | anc | top | ORA | ASL | slo |
+| 0x10 | BPL | ORA | hlt | slo | dop | ORA | ASL | slo |
+| 0x18 | CLC | ORA | nop | slo | top | ORA | ASL | slo |
+| 0x20 | JSR | AND | hlt | rla | BIT | AND | ROL | rla |
+| 0x28 | PLP | AND | ROL | anc | BIT | AND | ROL | rla |
+| 0x30 | BMI | AND | hlt | rla | dop | AND | ROL | rla |
+| 0x38 | SEC | AND | nop | rla | top | AND | ROL | rla |
+| 0x40 | RTI | EOR | hlt | sre | dop | EOR | LSR | sre |
+| 0x48 | PHA | EOR | LSR | alr | JMP | EOR | LSR | sre |
+| 0x50 | BVC | EOR | hlt | sre | dop | EOR | LSR | sre |
+| 0x58 | CLI | EOR | nop | sre | top | EOR | LSR | sre |
+| 0x60 | RTS | ADC | hlt | rra | dop | ADC | ROR | rra |
+| 0x68 | PLA | ADC | ROR | arr | JMP | ADC | ROR | rra |
+| 0x70 | BVS | ADC | hlt | rra | dop | ADC | ROR | rra |
+| 0x78 | SEI | ADC | nop | rra | top | ADC | ROR | rra |
+| 0x80 | dop | STA | dop | sax | STY | STA | STX | sax |
+| 0x88 | DEY | dop | TXA | ane | STY | STA | STX | sax |
+| 0x90 | BCC | STA | hlt | sha | STY | STA | STX | sax |
+| 0x98 | TYA | STA | TXS | shs | shy | STA | shx | sha |
+| 0xA0 | LDY | LDA | LDX | lax | LDY | LDA | LDX | lax |
+| 0xA8 | TAY | LDA | TAX | lax | LDY | LDA | LDX | lax |
+| 0xB0 | BCS | LDA | hlt | lax | LDY | LDA | LDX | lax |
+| 0xB8 | CLV | LDA | TSX | las | LDY | LDA | LDX | lax |
+| 0xC0 | CPY | CMP | dop | dcp | CPY | CMP | DEC | dcp |
+| 0xC8 | INY | CMP | DEX | sbx | CPY | CMP | DEC | dcp |
+| 0xD0 | BNE | CMP | hlt | dcp | dop | CMP | DEC | dcp |
+| 0xD8 | CLD | CMP | nop | dcp | top | CMP | DEC | dcp |
+| 0xE0 | CPX | SBC | dop | isb | CPX | SBC | INC | isb |
+| 0xE8 | INX | SBC | NOP | sbc | CPX | SBC | INC | isb |
+| 0xF0 | BEQ | SBC | hlt | isb | dop | SBC | INC | isb |
+| 0xF8 | SED | SBC | nop | isb | top | SBC | INC | isb |
 
 ###   Addressing
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0x00 | imp | i,X | kil |     | zp  | zp  | zp  |     |
-| 0x08 | imp | #im | acc |     | abs | abs | abs |     |
-| 0x10 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0x18 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
-| 0x20 | abs | i,X | kil |     | zp  | zp  | zp  |     |
-| 0x28 | imp | #im | acc |     | abs | abs | abs |     |
-| 0x30 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0x38 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
-| 0x40 | imp | i,X | kil |     | zp  | zp  | zp  |     |
-| 0x48 | imp | #im | acc |     | abs | abs | abs |     |
-| 0x50 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0x58 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
-| 0x60 | imp | i,X | kil |     | zp  | zp  | zp  |     |
-| 0x68 | imp | #im | acc |     | ind | abs | abs |     |
-| 0x70 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0x78 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
-| 0x80 | #im | i,X | #im |     |     |     | zp  |     |
-| 0x88 | imp | #im | imp |     |     |     | abs |     |
-| 0x90 | rel | i,Y | kil |     |     |     | z,X |     |
-| 0x98 | imp | a,Y | imp |     |     |     | a,X |     |
-| 0xA0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
-| 0xA8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xB0 | rel | i,Y | kil |     | z,X | z,X | z,Y |     |
-| 0xB8 | imp | a,Y | imp |     | a,X | a,X | a,Y |     |
-| 0xC0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
-| 0xC8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xD0 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0xD8 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
-| 0xE0 | #im | i,X | #im |     | zp  | zp  | zp  |     |
-| 0xE8 | imp | #im | imp |     | abs | abs | abs |     |
-| 0xF0 | rel | i,Y | kil |     | z,X | z,X | z,X |     |
-| 0xF8 | imp | a,Y | imp |     | a,X | a,X | a,X |     |
+| 0x00 | imp | i,X | kil | i,X | zp  | zp  | zp  | zp  |
+| 0x08 | imp | #im | acc | #im | abs | abs | abs | abs |
+| 0x10 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0x18 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
+| 0x20 | abs | i,X | kil | i,X | zp  | zp  | zp  | zp  |
+| 0x28 | imp | #im | acc | #im | abs | abs | abs | abs |
+| 0x30 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0x38 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
+| 0x40 | imp | i,X | kil | i,X | zp  | zp  | zp  | zp  |
+| 0x48 | imp | #im | acc | #im | abs | abs | abs | abs |
+| 0x50 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0x58 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
+| 0x60 | imp | i,X | kil | i,X | zp  | zp  | zp  | zp  |
+| 0x68 | imp | #im | acc | #im | ind | abs | abs | abs |
+| 0x70 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | zX  |
+| 0x78 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
+| 0x80 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
+| 0x88 | imp | #im | imp | #im | abs | abs | abs | abs |
+| 0x90 | rel | i,Y | kil | i,Y | a,X | z,X | z,Y | z,Y |
+| 0x98 | imp | a,Y | imp | a,Y | a,X | a,X | a,Y | a,Y |
+| 0xA0 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
+| 0xA8 | imp | #im | imp | #im | abs | abs | abs | abs |
+| 0xB0 | rel | i,Y | kil | i,Y | z,X | z,X | z,Y | z,Y |
+| 0xB8 | imp | a,Y | imp | a,Y | a,X | a,X | a,Y | a,Y |
+| 0xC0 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
+| 0xC8 | imp | #im | imp | #im | abs | abs | abs | abs |
+| 0xD0 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0xD8 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
+| 0xE0 | #im | i,X | #im | i,X | zp  | zp  | zp  | zp  |
+| 0xE8 | imp | #im | imp | #im | abs | abs | abs | abs |
+| 0xF0 | rel | i,Y | kil | i,Y | z,X | z,X | z,X | z,X |
+| 0xF8 | imp | a,Y | imp | a,Y | a,X | a,X | a,X | a,X |
 
 ###   Number of Bytes
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|----:|----:|----:|----:|----:|----:|----:|----:|
-| 0x00 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x08 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0x10 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x18 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0x20 |   3 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x28 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0x30 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x38 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0x40 |   1 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x48 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0x50 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x58 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0x60 |   1 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x68 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0x70 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0x78 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0x80 |   2 |   2 |   2 |     |     |   2 |     |     |
-| 0x88 |   1 |   2 |   1 |     |     |   3 |     |     |
-| 0x90 |   2 |   2 |   ? |     |     |   2 |     |     |
-| 0x98 |   1 |   3 |   1 |     |     |   3 |     |     |
-| 0xA0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
-| 0xA8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0xB0 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0xB8 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0xC0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
-| 0xC8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0xD0 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0xD8 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
-| 0xE0 |   2 |   2 |   2 |     |   2 |   2 |   2 |     |
-| 0xE8 |   1 |   2 |   1 |     |   3 |   3 |   3 |     |
-| 0xF0 |   2 |   2 |   ? |     |   2 |   2 |   2 |     |
-| 0xF8 |   1 |   3 |   1 |     |   3 |   3 |   3 |     |
+| 0x00 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x08 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x10 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x18 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0x20 |   3 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x28 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x30 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x38 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0x40 |   1 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x48 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x50 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x58 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0x60 |   1 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x68 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x70 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x78 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0x80 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
+| 0x88 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0x90 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0x98 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0xA0 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
+| 0xA8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0xB0 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0xB8 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0xC0 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
+| 0xC8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0xD0 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0xD8 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
+| 0xE0 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |   2 |
+| 0xE8 |   1 |   2 |   1 |   2 |   3 |   3 |   3 |   3 |
+| 0xF0 |   2 |   2 |   ? |   2 |   2 |   2 |   2 |   2 |
+| 0xF8 |   1 |   3 |   1 |   3 |   3 |   3 |   3 |   3 |
 
 ###   Cycles
 
 |      | + 0 | + 1 | + 2 | + 3 | + 4 | + 5 | + 6 | + 7 |
 |-----:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 0x00 |   7 |   6 |   ? |     |   3 |   3 |   5 |     |
-| 0x08 |   3 |   2 |   2 |     |   4 |   4 |   6 |     |
-| 0x10 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0x18 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
-| 0x20 |   6 |   6 |   ? |     |   3 |   3 |   5 |     |
-| 0x28 |   4 |   2 |   2 |     |   4 |   4 |   6 |     |
-| 0x30 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0x38 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
-| 0x40 |   6 |   6 |   ? |     |   3 |   3 |   5 |     |
-| 0x48 |   3 |   2 |   2 |     |   3 |   4 |   6 |     |
-| 0x50 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0x58 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
-| 0x60 |   6 |   6 |   ? |     |   3 |   3 |   5 |     |
-| 0x68 |   4 |   2 |   2 |     |   5 |   4 |   6 |     |
-| 0x70 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0x78 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
-| 0x80 |   2 |   6 |   2 |     |     |   3 |     |     |
-| 0x88 |   2 |   2 |   2 |     |     |   4 |     |     |
-| 0x90 | 2-4 |   6 |   ? |     |     |   4 |     |     |
-| 0x98 |   2 |   5 |   2 |     |     |   5 |     |     |
-| 0xA0 |   2 |   6 |   2 |     |   3 |   3 |   3 |     |
-| 0xA8 |   2 |   2 |   2 |     |   4 |   4 |   4 |     |
-| 0xB0 | 2-4 | 5,6 |   ? |     |   4 |   4 |   4 |     |
-| 0xB8 |   2 | 4,5 |   2 |     | 4,5 | 4,5 | 4,5 |     |
-| 0xC0 |   2 |   6 |   2 |     |   3 |   3 |   5 |     |
-| 0xC8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
-| 0xD0 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0xD8 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
-| 0xE0 |   2 |   6 |   2 |     |   3 |   3 |   5 |     |
-| 0xE8 |   2 |   2 |   2 |     |   4 |   4 |   6 |     |
-| 0xF0 | 2-4 | 5,6 |   ? |     |   4 |   4 |   6 |     |
-| 0xF8 |   2 | 4,5 |   2 |     |   4 | 4,5 |   7 |     |
+| 0x00 |   7 |   6 |   ? |   8 |   3 |   3 |   5 |   5 |
+| 0x08 |   3 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
+| 0x10 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0x18 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
+| 0x20 |   6 |   6 |   ? |   8 |   3 |   3 |   5 |   5 |
+| 0x28 |   4 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
+| 0x30 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0x38 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
+| 0x40 |   6 |   6 |   ? |   8 |   3 |   3 |   5 |   5 |
+| 0x48 |   3 |   2 |   2 |   2 |   3 |   4 |   6 |   6 |
+| 0x50 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0x58 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
+| 0x60 |   6 |   6 |   ? |   8 |   3 |   3 |   5 |   5 |
+| 0x68 |   4 |   2 |   2 |   2 |   5 |   4 |   6 |   6 |
+| 0x70 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0x78 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
+| 0x80 |   2 |   6 |   2 |   6 |   3 |   3 |   3 |   3 |
+| 0x88 |   2 |   2 |   2 |   2 |   4 |   4 |   4 |   4 |
+| 0x90 | 2-4 |   6 |   ? |   6 |   4 |   4 |   4 |   4 |
+| 0x98 |   2 |   5 |   2 |   5 |   5 |   5 |   5 |   5 |
+| 0xA0 |   2 |   6 |   2 |   6 |   3 |   3 |   3 |   3 |
+| 0xA8 |   2 |   2 |   2 |   2 |   4 |   4 |   4 |   4 |
+| 0xB0 | 2-4 | 5,6 |   ? |   5 |   4 |   4 |   4 |   4 |
+| 0xB8 |   2 | 4,5 |   2 |   4 | 4,5 | 4,5 | 4,5 |   4 |
+| 0xC0 |   2 |   6 |   2 |   8 |   3 |   3 |   5 |   5 |
+| 0xC8 |   2 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
+| 0xD0 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0xD8 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
+| 0xE0 |   2 |   6 |   2 |   8 |   3 |   3 |   5 |   5 |
+| 0xE8 |   2 |   2 |   2 |   2 |   4 |   4 |   6 |   6 |
+| 0xF0 | 2-4 | 5,6 |   ? |   8 |   4 |   4 |   6 |   6 |
+| 0xF8 |   2 | 4,5 |   2 |   7 |   4 | 4,5 |   7 |   7 |
 
 
 ##  Details
